@@ -36,10 +36,10 @@ for i, l in enumerate(files):
         print("Error in line "+l)
         del(files[i])
 
-for i, l in enumerate(hist_files):
+for j, l in enumerate(hist_files):
     if not "Monthly" in l:
         print("Error in line "+l)
-        del(hist_files[i])
+        del(hist_files[j])
 
 for f in hist_files:
     try:
