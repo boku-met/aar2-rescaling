@@ -5,4 +5,4 @@ This repository contains code and data for the rescaling of the Austrian climate
 - Check data location for CMIP5 and CMIP6
 - Check if all needed models are present
 - CODE: Select specific CMIP5 models for ÖKS15
-
+- Create Masks for AUT from CMIP5 and CMIP6 data
