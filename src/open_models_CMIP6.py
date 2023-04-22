@@ -6,17 +6,11 @@ Created on Fri Apr 21 15:56:57 2023
 @author: bbecsi
 """
 
-import os
-import glob
-import numpy as np
-import xarray as xr
-
-# open and clean up lists for file import
-infiles = open(file="/metstor_nfs/projects/VTreasures/CMIP6_Data/All_tas_metstor.txt", mode="rt")
+# open and clean up lists for CMIP6 file import
+infiles = open(file="/nas5/Projects/AAR2_rescaling/aar2-rescaling/dat/tas_models.txt", mode="rt")
 files = []
 for line in infiles:
     files.append(line)
-files = [x.replace("./", "/metstor_nfs/projects/VTreasures/CMIP6_Data/") for x in files]
 files = [x.replace("\n","") for x in files]
 
 for i, l in enumerate(files):
@@ -41,18 +35,31 @@ for j, l in enumerate(hist_files):
         print("Error in line "+l)
         del(hist_files[j])
 
-for f in hist_files:
-    try:
-        f1 = xr.open_dataset(f)
-        print("successfully opened file: "+f)
-    except(Exception):
-        print("error opening file "+f)
+files.sort()
+hist_files.sort()
 
-for f in files:
-    try:
-        f1 = xr.open_dataset(f)
-        print("successfully opened file: "+f)
-    except(Exception):
-        print("error opening file "+f)
+outf  = open(file="/nas5/Projects/AAR2_rescaling/aar2-rescaling/dat/cmip6_historic.txt", mode="xt", encoding="utf-8", newline="\n")
+for l in hist_files:
+    outf.write(l+"\n")
+outf.close()
+
+outf  = open(file="/nas5/Projects/AAR2_rescaling/aar2-rescaling/dat/cmip6_models.txt", mode="xt", encoding="utf-8", newline="\n")
+for l in files:
+    outf.write(l+"\n")
+outf.close()
+
+#for f in hist_files:
+#    try:
+#        f1 = xr.open_dataset(f)
+#        print("successfully opened file: "+f)
+#    except(Exception):
+#        print("error opening file "+f)
+
+#for f in files:
+#    try:
+#        f1 = xr.open_dataset(f)
+#        print("successfully opened file: "+f)
+#    except(Exception):
+#        print("error opening file "+f)
 
 print("all checks completed.")
