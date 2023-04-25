@@ -25,8 +25,8 @@ if os.path.isfile(outn_ssp):
 outf_ssp = open(file=outn_ssp, mode="xt", encoding="utf-8", newline="\n")
 outf_hist = open(file=outn_hist, mode="xt", encoding="utf-8", newline="\n")
 
-outf_hist.write("Model name;Start date;End date;Unit;Dimensions;Grid;Resolution;Data type\n")
-outf_ssp.write("Model name;Start date;End date;Unit;Dimensions;Grid;Resolution;Data type\n")
+outf_hist.write("Model name   Start date   End date   Unit   Dimensions   Grid   Resolution   Data type\n")
+outf_ssp.write("Model name   Start date   End date   Unit   Dimensions   Grid   Resolution   Data type\n")
 
 for f in infiles_hist:
     try:
@@ -35,7 +35,7 @@ for f in infiles_hist:
         modelname = f.split("/")[-1].replace(".nc","")
         edate = f1.time[-1].values
         sdate = f1.time[0].values
-        outf_hist.write("{0};{1};{2};{3};{4};{5};{6};{7}\n".format(modelname, sdate, edate, f1.tas.attrs["units"], f1.dims, f1.attrs["grid"], f1.attrs["nominal_resolution"], f1.tas.encoding["dtype"]))
+        outf_hist.write("{0}   {1}   {2}   {3}   {4}   {5}   {6}   {7}\n".format(modelname, sdate, edate, f1.tas.attrs["units"], f1.dims, f1.attrs["grid"], f1.attrs["nominal_resolution"], f1.tas.encoding["dtype"]))
     except(Exception):
         print("Some errors occured in file "+f)
 
@@ -46,7 +46,7 @@ for f in infiles_ssp:
         modelname = f.split("/")[-1].replace(".nc","")
         edate = f1.time[-1].values
         sdate = f1.time[0].values
-        outf_ssp.write("{0};{1};{2};{3};{4};{5};{6};{7}\n".format(modelname, sdate, edate, f1.tas.attrs["units"], f1.dims, f1.attrs["grid"], f1.attrs["nominal_resolution"], f1.tas.encoding["dtype"]))
+        outf_ssp.write("{0}   {1}   {2}   {3}   {4}   {5}   {6}   {7}\n".format(modelname, sdate, edate, f1.tas.attrs["units"], f1.dims, f1.attrs["grid"], f1.attrs["nominal_resolution"], f1.tas.encoding["dtype"]))
     except(Exception):
         print("Some errors occured in file "+f)
 
