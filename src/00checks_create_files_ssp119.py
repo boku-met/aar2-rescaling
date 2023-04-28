@@ -18,10 +18,7 @@ temp_files = [x for x in files if "Amon" in x]
 temp_files = [x.replace("ImranN/", "/hpx/ImranN/") for x in temp_files]
 temp_files.sort()
 
-unique_files = [x[:-16] for x in temp_files]
-unique_files = np.array(unique_files)
-unique_files = np.unique(unique_files)
-unique_files = [x for x in unique_files]
+unique_files = np.unique([x[:-16] for x in temp_files])
 
 for file in unique_files:
     f_in = sorted(glob.glob(file+"*.nc"))
@@ -32,6 +29,7 @@ for file in unique_files:
         f1 = xr.open_dataset(f_in[0])
     else:
         print("file {0} not found, continuing with next file".format(f_in))
+        continue
     if f1.time.dtype == "object":
         syr = str(f1.time[0].dt.year.values)
         eyr = str(f1.time[-1].dt.year.values)

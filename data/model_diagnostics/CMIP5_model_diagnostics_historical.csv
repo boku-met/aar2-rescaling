@@ -1,0 +1,8 @@
+Model name   Start date   End date   Unit   Dimensions   Grid   Resolution   Data type
+tas_Amon_CNRM-CM5_historical_r1i1p1_185001-200512   185001   200512   K   Frozen({'time': 1872, 'bnds': 2, 'lat': 128, 'lon': 256})   X   X   float32
+tas_Amon_EC-EARTH_historical_r12i1p1_185001-201212   185001   201212   K   Frozen({'time': 1956, 'bnds': 2, 'lat': 160, 'lon': 320})   X   X   float32
+tas_Amon_EC-EARTH_historical_r1i1p1_185001-200911   185001   200911   K   Frozen({'lon': 320, 'nv': 2, 'lat': 160, 'time': 1919, 'tbnds': 2})   X   X   float32
+tas_Amon_HadGEM2-ES_historical_r1i1p1_185912-200511   185912   200511   K   Frozen({'time': 1752, 'bnds': 2, 'lat': 145, 'lon': 192})   X   X   float32
+tas_Amon_IPSL-CM5A-MR_historical_r1i1p1_185001-200512   185001   200512   K   Frozen({'time': 1872, 'bnds': 2, 'lat': 143, 'lon': 144})   X   X   float32
+tas_Amon_MPI-ESM-LR_historical_r1i1p1_185001-200512   185001   200512   K   Frozen({'time': 1872, 'bnds': 2, 'lat': 96, 'lon': 192})   X   X   float32
+tas_Amon_MPI-ESM-LR_historical_r2i1p1_185001-200512   185001   200512   K   Frozen({'time': 1872, 'bnds': 2, 'lat': 96, 'lon': 192})   X   X   float32
