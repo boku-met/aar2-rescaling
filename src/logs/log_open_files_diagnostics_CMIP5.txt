@@ -1,5 +1,5 @@
-file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/CMIP5_model_diagnostics_historical.csv already exists. Deleting.
-file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/CMIP5_model_diagnostics_projections.csv already exists. Deleting.
+file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics/CMIP5_model_diagnostics_historical.csv already exists. Deleting.
+file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics/CMIP5_model_diagnostics_projections.csv already exists. Deleting.
 successfully opened file: /hpx/Bennib/CMIP5_data_temp/OEKS15_historical/tas_Amon_CNRM-CM5_historical_r1i1p1_185001-200512.nc
 Some attributes missing in file /hpx/Bennib/CMIP5_data_temp/OEKS15_historical/tas_Amon_CNRM-CM5_historical_r1i1p1_185001-200512.nc
 successfully opened file: /hpx/Bennib/CMIP5_data_temp/OEKS15_historical/tas_Amon_EC-EARTH_historical_r12i1p1_185001-201212.nc

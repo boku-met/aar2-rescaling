@@ -13,8 +13,8 @@ import xarray as xr
 infiles_rcp = sorted(glob.glob("/hpx/Bennib/CMIP5_data_temp/OEKS15_models/*.nc"))
 infiles_hist = sorted(glob.glob("/hpx/Bennib/CMIP5_data_temp/OEKS15_historical/*.nc"))
 
-outn_rcp = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/CMIP5_model_diagnostics_projections.csv"
-outn_hist = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/CMIP5_model_diagnostics_historical.csv"
+outn_rcp = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics/CMIP5_model_diagnostics_projections.csv"
+outn_hist = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics/CMIP5_model_diagnostics_historical.csv"
 
 if os.path.isfile(outn_hist):
     print("file {0} already exists. Deleting.".format(outn_hist))

@@ -13,8 +13,8 @@ import xarray as xr
 infiles_ssp = sorted(glob.glob("/hpx/Bennib/CMIP6_data_temp/Projection/*.nc"))
 infiles_hist = sorted(glob.glob("/hpx/Bennib/CMIP6_data_temp/Historic/*.nc"))
 
-outn_ssp = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/CMIP6_model_diagnostics_projections.csv"
-outn_hist = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/CMIP6_model_diagnostics_historical.csv"
+outn_ssp = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics/CMIP6_model_diagnostics_projections.csv"
+outn_hist = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics/CMIP6_model_diagnostics_historical.csv"
 
 if os.path.isfile(outn_hist):
     print("file {0} already exists. Deleting.".format(outn_hist))

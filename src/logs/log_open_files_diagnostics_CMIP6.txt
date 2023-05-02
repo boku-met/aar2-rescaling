@@ -1,5 +1,5 @@
-file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics_historical.csv already exists. Deleting.
-file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics_projections.csv already exists. Deleting.
+file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics/CMIP6_model_diagnostics_historical.csv already exists. Deleting.
+file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/model_diagnostics/CMIP6_model_diagnostics_projections.csv already exists. Deleting.
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Historic/tas_Amon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Historic/tas_Amon_ACCESS-ESM1-5_historical_r1i1p1f1_gn_185001-201412.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Historic/tas_Amon_AWI-CM-1-1-MR_historical_r1i1p1f1_gn_185001-201412.nc
@@ -148,7 +148,6 @@ successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Ear
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg_ssp245_r1i1p1f1_gr_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg_ssp370_r1i1p1f1_gr_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg_ssp585_r1i1p1f1_gr_201501-210012.nc
-successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3_ssp119_r4i1p1f1_gr_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3_ssp126_r1i1p1f1_gr_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3_ssp245_r1i1p1f1_gr_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3_ssp370_r1i1p1f1_gr_201501-210012.nc
@@ -178,7 +177,6 @@ successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-E
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-ESM4_ssp245_r1i1p1f1_gr1_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-ESM4_ssp370_r1i1p1f1_gr1_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-ESM4_ssp585_r1i1p1f1_gr1_201501-210012.nc
-successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-G_ssp119_r1i1p3f1_gn_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-G_ssp126_r1i1p1f2_gn_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-G_ssp245_r1i1p1f2_gn_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-G_ssp370_r1i1p1f2_gn_201501-210012.nc
@@ -236,6 +234,7 @@ successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ES
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-HR_ssp245_r1i1p1f1_gn_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-HR_ssp370_r1i1p1f1_gn_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-HR_ssp585_r1i1p1f1_gn_201501-210012.nc
+successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp119_r1i1p1f1_gn_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp126_r1i1p1f1_gn_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp245_r1i1p1f1_gn_201501-210012.nc
 successfully opened file: /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp370_r1i1p1f1_gn_201501-210012.nc
