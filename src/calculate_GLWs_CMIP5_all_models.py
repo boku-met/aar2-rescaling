@@ -10,24 +10,34 @@ import glob
 import numpy as np
 import xarray as xr
 
-#latmin=46.5
-#latmax=49
-#lonmin=9.5
-#lonmax=17
+try: 
+    os.nice(8-os.nice(0)) # set current nice level to 8, if it is lower 
+except: # nice level already above 8
+    pass
+
+def check_isfile(fname):
+    if os.path.isfile(fname):
+        print("File {0} already exists. Overwriting...".format(fname))
+        os.remove(fname)
+    file_out = open(fname, mode="xt", encoding="utf-8", newline="\n")
+    return file_out
+
+latmin=46.5
+latmax=49
+lonmin=9.5
+lonmax=17
 
 # user specified paths and data
 gwls = [1.5, 2.0, 3.0, 4.0]
-path_cmip5_models = "/hpx/Bennib/CMIP5_data_temp/OEKS15_models/"
-path_cmip5_hist = "/hpx/Bennib/CMIP5_data_temp/OEKS15_historical/"
-path_oeks15 = "/nas5/Projects/OEK15/tas_daily/"
-outf = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5.csv"
-if os.path.isfile(outf):
-    print("File {0} already exists. Overwriting...".format(outf))
-    os.remove(outf)
-outfile = open(outf, mode="xt", encoding="utf-8", newline="\n")
-outfile.write("Linked models;;Mean year per GWL;;;;Period per GWL\n")
-outfile.write("GCM (CMIP5);OEKS15 ensemble member;1.5°C;2.0°C;3.0°C;4.0°C;1.5°C;2.0°C;3.0°C;4.0°C\n")
+path_cmip5_models = "/hpx/Bennib/CMIP5_data_temp/CMIP5_all_models/"
+path_cmip5_hist = "/hpx/Bennib/CMIP5_data_temp/CMIP5_all_hist/"
+outf = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_all_models.csv"
 
+# create summary csv file for CMIP5 OEKS15 GWLs
+outfile = check_isfile(outf)
+outfile.write("Model;Mean year per GWL;;;;Period per GWL;;;;AUT GCM CCS 2001-2020\n")
+outfile.write("GCM (CMIP5);1.5°C;2.0°C;3.0°C;4.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.5°C;2.0°C;3.0°C;4.0°C\n")
+    
 for rcp in  ["rcp26", "rcp45", "rcp85"]:
     # create filelist for each rcp
     infiles = sorted(glob.glob(path_cmip5_models+"tas_*"+rcp+"*.nc"))
@@ -35,8 +45,6 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
         # search for associated historical/oeks15 files
         search_term = file.split("/")[-1][:-17]
         search_hist = search_term.replace(rcp, "historical")
-        search_oeks15 = search_term.replace("tas_Amon_", "")
-        file_oeks15 = sorted(glob.glob(path_oeks15+"*"+search_oeks15+"*.nc"))
         file_hist = glob.glob(path_cmip5_hist+search_hist+"*.nc")
         assert(len(file_hist) == 1)
         # open files and determine time period
@@ -51,27 +59,41 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
         tas_weighted = f1.tas.weighted(weights)
         series_global = tas_weighted.mean(dim=('lat', 'lon'), skipna=True).compute()
         series_global = series_global.resample(time="A", skipna = True).mean()
+        # calculate AUT annual mean temperature timeseries
+        tas_aut = f1.tas.sel(lat = slice(latmin, latmax), lon = slice(lonmin, lonmax))
+        weights_aut = weights.sel(lat = slice(latmin, latmax))
+        tas_weighted_aut = tas_aut.weighted(weights_aut)
+        series_aut = tas_weighted_aut.mean(dim=("lat","lon"), skipna=True).compute()
+        series_aut = series_aut.resample(time="A", skipna=True).mean()
         # calculate anomalies and smooth timeseries
         ref_gmt = series_global.sel(time=slice(str(min_yr),"1900")).mean(skipna=True)
+        ref_amt = series_aut.sel(time = slice("2001","2020")).mean(skipna = True)
         anomalies = series_global - ref_gmt
+        anomalies_aut = series_aut - ref_amt
         anomalies_smooth = anomalies.rolling(time = 20, center = True, min_periods = 20).mean(skipna = True).compute()
+        anomalies_aut_smooth = anomalies_aut.rolling(time = 20, center = True, min_periods = 20).mean(skipna = True).compute()
         # create data to write to list
         gwl_list = []
         mean_years = []
+        ccs_aut_gcm = []
         for gwl in gwls:
             try:
                 timeind = (anomalies_smooth.values >= gwl).nonzero()[0][0]
                 mean_year = anomalies_smooth[timeind].time.dt.year.values
-                period = "{0}-{1}".format(mean_year-9, mean_year+10)
+                period = "{0}-{1}".format(mean_year-10, mean_year+9)
+                ccs_aut_gcm1 = anomalies_aut_smooth[timeind].values
+                # add data to lists
                 mean_years.append(str(mean_year))
                 gwl_list.append(period)
+                ccs_aut_gcm.append(str(ccs_aut_gcm1))
             except IndexError:
                 mean_years.append("n/a")
                 gwl_list.append("n/a")
-        # write data to file
-        for f in file_oeks15:
-            modelname = f.split("/")[-1].replace("tas_","").replace(".nc","")
-            outfile.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}\n".format(search_oeks15, modelname, *mean_years, *gwl_list))
+                ccs_aut_gcm.append("n/a")
+        
+        # write data to files
+        modelname = file.split("/")[-1].replace("tas_Amon_","").replace(".nc","")
+        outfile.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12}\n".format(modelname, *mean_years, *gwl_list, *ccs_aut_gcm))
 
 outfile.close()
 print("Writing file {0} complete!".format(outf))
