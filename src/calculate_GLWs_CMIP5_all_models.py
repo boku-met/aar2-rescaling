@@ -35,7 +35,7 @@ outf = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_a
 
 # create summary csv file for CMIP5 OEKS15 GWLs
 outfile = check_isfile(outf)
-outfile.write("Model;Mean year per GWL;;;;Period per GWL;;;;AUT GCM CCS 2001-2020\n")
+outfile.write("Model;Mean year per GWL;;;;Period per GWL;;;;AUT GCM CCS 1991-2020\n")
 outfile.write("GCM (CMIP5);1.5°C;2.0°C;3.0°C;4.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.5°C;2.0°C;3.0°C;4.0°C\n")
     
 for rcp in  ["rcp26", "rcp45", "rcp85"]:
@@ -67,7 +67,7 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
         series_aut = series_aut.resample(time="A", skipna=True).mean()
         # calculate anomalies and smooth timeseries
         ref_gmt = series_global.sel(time=slice(str(min_yr),"1900")).mean(skipna=True)
-        ref_amt = series_aut.sel(time = slice("2001","2020")).mean(skipna = True)
+        ref_amt = series_aut.sel(time = slice("1991","2020")).mean(skipna = True)
         anomalies = series_global - ref_gmt
         anomalies_aut = series_aut - ref_amt
         anomalies_smooth = anomalies.rolling(time = 20, center = True, min_periods = 20).mean(skipna = True).compute()

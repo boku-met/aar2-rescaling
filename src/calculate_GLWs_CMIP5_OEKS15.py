@@ -37,7 +37,7 @@ outp = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/oeks15_anomalies/"
 
 # create summary csv file for CMIP5 OEKS15 GWLs
 outfile = check_isfile(outf)
-outfile.write("Linked models;;Mean year per GWL;;;;Period per GWL;;;;AUT GCM CCS 2001-2020;;;;AUT OEKS15 CCS 2001-2020\n")
+outfile.write("Linked models;;Mean year per GWL;;;;Period per GWL;;;;AUT GCM CCS 1991-2020;;;;AUT OEKS15 CCS 1991-2020\n")
 outfile.write("GCM (CMIP5);OEKS15 ensemble member;1.5°C;2.0°C;3.0°C;4.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.5°C;2.0°C;3.0°C;4.0°C\n")
     
 for rcp in  ["rcp26", "rcp45", "rcp85"]:
@@ -71,7 +71,7 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
         series_aut = series_aut.resample(time="A", skipna=True).mean()
         # calculate anomalies and smooth timeseries
         ref_gmt = series_global.sel(time=slice(str(min_yr),"1900")).mean(skipna=True)
-        ref_amt = series_aut.sel(time = slice("2001","2020")).mean(skipna = True)
+        ref_amt = series_aut.sel(time = slice("1991","2020")).mean(skipna = True)
         anomalies = series_global - ref_gmt
         anomalies_aut = series_aut - ref_amt
         anomalies_smooth = anomalies.rolling(time = 20, center = True, min_periods = 20).mean(skipna = True).compute()
@@ -97,14 +97,14 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
         
         # write data to files
         for f in file_oeks15:
-            fout = outp + f.split("/")[-1].replace(".nc","_annual_anomalies_2001-2020.csv")
+            fout = outp + f.split("/")[-1].replace(".nc","_annual_anomalies_1991-2020.csv")
             fout_oeks15 = check_isfile(fout)
-            fout_oeks15.write("Year;Anomaly 2001-2020\n")
+            fout_oeks15.write("Year;Anomaly 1991-2020\n")
             #open oeks15 file and calculate annual timeseries
             f_oeks15 = xr.open_dataset(f).chunk(time=3500)
             series_oeks15 = f_oeks15.tas.mean(dim=('y', 'x'), skipna=True).compute()
             series_oeks15 = series_oeks15.resample(time="A", skipna = True).mean()
-            ref_oeks15 = series_oeks15.sel(time=slice("2001","2020")).mean(skipna=True)
+            ref_oeks15 = series_oeks15.sel(time=slice("1991","2020")).mean(skipna=True)
             anomalies_oeks15 = (series_oeks15 - ref_oeks15).compute()
             anomalies_oeks15_smooth = anomalies_oeks15.rolling(time=20, center=True, min_periods = 20).mean(skipna = True).compute()
             #write out anomalies timeseries
