@@ -1,0 +1,225 @@
+File /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_all_models.csv already exists. Overwriting...
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAMS-CSM1-0_ssp119_r2i1p1f1_gn_201501-209912.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-ESM2-1_ssp119_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5_ssp119_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg-LR_ssp119_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg_ssp119_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-g3_ssp119_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-ESM4_ssp119_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IPSL-CM6A-LR_ssp119_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC-ES2L_ssp119_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC6_ssp119_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp119_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MRI-ESM2-0_ssp119_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_UKESM1-0-LL_ssp119_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_ACCESS-CM2_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_AWI-CM-1-1-MR_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_BCC-CSM2-MR_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAMS-CSM1-0_ssp126_r2i1p1f1_gn_201501-209912.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAS-ESM2-0_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CESM2-WACCM_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CESM2_ssp126_r4i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CMCC-CM2-SR5_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CMCC-ESM2_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-CM6-1-HR_ssp126_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-CM6-1_ssp126_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-ESM2-1_ssp126_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5-CanOE_ssp126_r1i1p2f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg-LR_ssp126_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg_ssp126_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3_ssp126_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-f3-L_ssp126_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-g3_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FIO-ESM-2-0_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-ESM4_ssp126_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-G_ssp126_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-H_ssp126_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_HadGEM3-GC31-LL_ssp126_r1i1p1f3_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_HadGEM3-GC31-MM_ssp126_r1i1p1f3_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IITM-ESM_ssp126_r1i1p1f1_gn_201501-209912.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_INM-CM4-8_ssp126_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_INM-CM5-0_ssp126_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IPSL-CM5A2-INCA_ssp126_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IPSL-CM6A-LR_ssp126_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_KACE-1-0-G_ssp126_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_KIOST-ESM_ssp126_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MCM-UA-1-0_ssp126_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC-ES2L_ssp126_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC6_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-HR_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MRI-ESM2-0_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NESM3_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NorESM2-LM_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NorESM2-MM_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_TaiESM1_ssp126_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_UKESM1-0-LL_ssp126_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_ACCESS-CM2_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_ACCESS-ESM1-5_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_AWI-CM-1-1-MR_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_BCC-CSM2-MR_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAMS-CSM1-0_ssp245_r2i1p1f1_gn_201501-209912.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAS-ESM2-0_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CESM2-WACCM_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CESM2_ssp245_r4i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CMCC-CM2-SR5_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CMCC-ESM2_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-CM6-1-HR_ssp245_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-CM6-1_ssp245_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-ESM2-1_ssp245_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5-CanOE_ssp245_r1i1p2f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-CC_ssp245_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg-LR_ssp245_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg_ssp245_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3_ssp245_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-f3-L_ssp245_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-g3_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FIO-ESM-2-0_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-CM4_ssp245_r1i1p1f1_gr1_201501-210012.nc finished!
+Dropped time_bnds variable from datasets, concatting successful!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-CM4_ssp245_r1i1p1f1_gr2_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-ESM4_ssp245_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-G_ssp245_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-H_ssp245_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_HadGEM3-GC31-LL_ssp245_r1i1p1f3_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IITM-ESM_ssp245_r1i1p1f1_gn_201501-209912.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_INM-CM4-8_ssp245_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_INM-CM5-0_ssp245_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IPSL-CM6A-LR_ssp245_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_KACE-1-0-G_ssp245_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_KIOST-ESM_ssp245_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MCM-UA-1-0_ssp245_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC-ES2L_ssp245_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC6_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-HR_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MRI-ESM2-0_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NESM3_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NorESM2-LM_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NorESM2-MM_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_TaiESM1_ssp245_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_UKESM1-0-LL_ssp245_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_ACCESS-CM2_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_ACCESS-ESM1-5_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_AWI-CM-1-1-MR_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_BCC-CSM2-MR_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_BCC-ESM1_ssp370_r1i1p1f1_gn_201501-205512.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAMS-CSM1-0_ssp370_r2i1p1f1_gn_201501-209912.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAS-ESM2-0_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CESM2-WACCM_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CESM2_ssp370_r4i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CMCC-CM2-SR5_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CMCC-ESM2_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-CM6-1-HR_ssp370_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-CM6-1_ssp370_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-ESM2-1_ssp370_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5-CanOE_ssp370_r1i1p2f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-AerChem_ssp370_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg-LR_ssp370_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg_ssp370_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3_ssp370_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-f3-L_ssp370_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-g3_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-ESM4_ssp370_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-G_ssp370_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-H_ssp370_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IITM-ESM_ssp370_r1i1p1f1_gn_201501-209812.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_INM-CM4-8_ssp370_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_INM-CM5-0_ssp370_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IPSL-CM5A2-INCA_ssp370_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IPSL-CM6A-LR_ssp370_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_KACE-1-0-G_ssp370_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MCM-UA-1-0_ssp370_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC-ES2L_ssp370_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC6_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM-1-2-HAM_ssp370_r1i1p1f1_gn_201501-205512.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-HR_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MRI-ESM2-0_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NorESM2-LM_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NorESM2-MM_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_TaiESM1_ssp370_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_UKESM1-0-LL_ssp370_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_ACCESS-CM2_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_ACCESS-ESM1-5_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_AWI-CM-1-1-MR_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_BCC-CSM2-MR_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAMS-CSM1-0_ssp585_r2i1p1f1_gn_201501-209912.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CAS-ESM2-0_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CESM2-WACCM_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+/hpx/Bennib/miniconda3/envs/Pytools/lib/python3.9/site-packages/xarray/conventions.py:523: SerializationWarning: variable 'tas' has multiple fill values {1e+20, 1e+20}, decoding all values to NaN.
+  new_vars[k] = decode_cf_variable(
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CESM2_ssp585_r4i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CMCC-CM2-SR5_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CMCC-ESM2_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-CM6-1-HR_ssp585_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-CM6-1_ssp585_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CNRM-ESM2-1_ssp585_r1i1p1f2_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5-CanOE_ssp585_r1i1p2f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_CanESM5_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-CC_ssp585_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg-LR_ssp585_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3-Veg_ssp585_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_EC-Earth3_ssp585_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-f3-L_ssp585_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FGOALS-g3_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_FIO-ESM-2-0_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-CM4_ssp585_r1i1p1f1_gr1_201501-210012.nc finished!
+Dropped time_bnds variable from datasets, concatting successful!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-CM4_ssp585_r1i1p1f1_gr2_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GFDL-ESM4_ssp585_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_GISS-E2-1-G_ssp585_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_HadGEM3-GC31-LL_ssp585_r1i1p1f3_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_HadGEM3-GC31-MM_ssp585_r1i1p1f3_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IITM-ESM_ssp585_r1i1p1f1_gn_201501-209912.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_INM-CM4-8_ssp585_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_INM-CM5-0_ssp585_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_IPSL-CM6A-LR_ssp585_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_KACE-1-0-G_ssp585_r1i1p1f1_gr_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_KIOST-ESM_ssp585_r1i1p1f1_gr1_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MCM-UA-1-0_ssp585_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC-ES2L_ssp585_r1i1p1f2_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MIROC6_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-HR_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MPI-ESM1-2-LR_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_MRI-ESM2-0_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NESM3_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NorESM2-LM_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_NorESM2-MM_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_TaiESM1_ssp585_r1i1p1f1_gn_201501-210012.nc finished!
+Writing data for model /hpx/Bennib/CMIP6_data_temp/Projection/tas_Amon_UKESM1-0-LL_ssp585_r1i1p1f2_gn_201501-210012.nc finished!
+Writing file /nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_all_models.csv complete!

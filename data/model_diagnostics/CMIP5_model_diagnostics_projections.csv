@@ -1,0 +1,17 @@
+Model name   Start date   End date   Unit   Dimensions   Grid   Resolution   Data type
+tas_Amon_CNRM-CM5_rcp45_r1i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 128, 'lon': 256})   X   X   float32
+tas_Amon_CNRM-CM5_rcp85_r1i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 128, 'lon': 256})   X   X   float32
+tas_Amon_EC-EARTH_rcp26_r12i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 160, 'lon': 320})   X   X   float32
+tas_Amon_EC-EARTH_rcp45_r12i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 160, 'lon': 320})   X   X   float32
+tas_Amon_EC-EARTH_rcp45_r1i1p1_200601-209912   200601   209912   K   Frozen({'time': 1128, 'bnds': 2, 'lat': 160, 'lon': 320})   X   X   float32
+tas_Amon_EC-EARTH_rcp85_r12i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 160, 'lon': 320})   X   X   float32
+tas_Amon_EC-EARTH_rcp85_r1i1p1_200601-210012   200601   210012   K   Frozen({'lat': 160, 'bnds': 2, 'lon': 320, 'nv': 2, 'time': 1140, 'tbnds': 2})   X   X   float32
+tas_Amon_HadGEM2-ES_rcp26_r1i1p1_200512-209911   200512   209911   K   Frozen({'time': 1128, 'bnds': 2, 'lat': 145, 'lon': 192})   X   X   float32
+tas_Amon_HadGEM2-ES_rcp45_r1i1p1_200512-209911   200512   209911   K   Frozen({'time': 1128, 'bnds': 2, 'lat': 145, 'lon': 192})   X   X   float32
+tas_Amon_HadGEM2-ES_rcp85_r1i1p1_200512-209912   200512   209912   K   Frozen({'time': 1129, 'bnds': 2, 'lat': 145, 'lon': 192})   X   X   float32
+tas_Amon_IPSL-CM5A-MR_rcp45_r1i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 143, 'lon': 144})   X   X   float32
+tas_Amon_IPSL-CM5A-MR_rcp85_r1i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 143, 'lon': 144})   X   X   float32
+tas_Amon_MPI-ESM-LR_rcp26_r1i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 96, 'lon': 192})   X   X   float32
+tas_Amon_MPI-ESM-LR_rcp26_r2i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 96, 'lon': 192})   X   X   float32
+tas_Amon_MPI-ESM-LR_rcp45_r1i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 96, 'lon': 192})   X   X   float32
+tas_Amon_MPI-ESM-LR_rcp85_r1i1p1_200601-210012   200601   210012   K   Frozen({'time': 1140, 'bnds': 2, 'lat': 96, 'lon': 192})   X   X   float32
