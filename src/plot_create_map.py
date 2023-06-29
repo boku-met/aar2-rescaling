@@ -18,8 +18,8 @@ try:
 except: # nice level already above 8
     pass
 
-path_to_indicators = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
-searchterm_indicators = "consecutive_dry_days_noofdays"
+path_to_indicators = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
+searchterm_indicators = "very_heavy_precipitation_days_20mm"
 
 # for defining the point in the time period
 quantile = 0.5
