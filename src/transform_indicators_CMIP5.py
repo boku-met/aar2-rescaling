@@ -84,7 +84,7 @@ for i, gwl in enumerate(gwls):
     anomalies_ensemble = anomalies_ensemble.astype(np.float32)
 
     gwl_ensemble.attrs, ref_period_ensemble.attrs, anomalies_ensemble.attrs = f1[varname_indicator].attrs, f1[varname_indicator].attrs, f1[varname_indicator].attrs
-    encoding_dict = {'zlib': True, 'complevel': 6,'dtype': np.float32, '_FillValue': 9.96921e+36}
+    encoding_dict = {'zlib': True, 'complevel': 1,'dtype': np.float32, '_FillValue': 9.96921e+36}
     gwl_ensemble.encoding, ref_period_ensemble.encoding, anomalies_ensemble.encoding = encoding_dict, encoding_dict, encoding_dict
 
     file_attrs = {'title': 'Ensemble for indicator <{0}>, conforming to the global warming level of {1}°C'.format(varname_indicator, gwl),
@@ -96,7 +96,7 @@ for i, gwl in enumerate(gwls):
     fout = xr.Dataset({varname_indicator: gwl_ensemble, 
                        "{0}_reference_period_1991_2020".format(varname_indicator):ref_period_ensemble,
                         "{0}_anomalies".format(varname_indicator) : anomalies_ensemble,
-                       'lambert_conformal_conic': f_mask.lambert_conformal_conic, 
+                       'crs': f1.crs, 
                        "lat": f1.lat, "lon": f1.lon}, 
                       coords={"ens": ensemble_info, "time": gwl_ensemble.time, 
                               "y": gwl_ensemble.y, "x": gwl_ensemble.x},
