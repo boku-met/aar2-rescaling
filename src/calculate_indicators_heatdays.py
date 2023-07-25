@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue May 31 12:04:42 2022
+
+@author: benedikt.becsi<at>boku.ac.at
+"""
+import os
+import glob
+from joblib import Parallel, delayed
+import numpy as np
+import xarray as xr
+
+try: 
+    os.nice(8-os.nice(0)) # set current nice level to 8, if it is lower 
+except: # nice level already above 8
+    pass
+
+def user_data():
+    # Please specify the path to the folder containing the data. This indicator
+    # requires precipitation data.
+    path_to_data = "/nas/nas5/Projects/OEK15/tx_daily" 
+    
+    # Please specify the path to the folder where the output should be saved to
+    output_path = "/hp8/Projekte_Benni/Temp_Data/Indicators"
+             
+    return path_to_data, output_path
+        
+def main():
+    
+    (path_in, path_out) = user_data()
+    
+    if path_in.endswith("/"):
+        None
+    else:
+        path_in += "/"
+    infiles_pr = sorted(glob.glob(path_in+"tx_SDM_*.nc"))
+          
+    for file in infiles_pr:
+        ds_in_pr = xr.open_dataset(file)
+        for dvar in ds_in_pr.data_vars:
+            if "lambert" in dvar:
+                crsvar = dvar
+        check_endyear = (ds_in_pr.time.dt.month == 12) & (ds_in_pr.time.dt.day == 30)
+        time_fullyear = ds_in_pr.time[check_endyear]
+        years = np.unique(time_fullyear.dt.year)
+        ds_in_pr = ds_in_pr.sel(time=slice(str(min(years)), str(max(years))))
+        mask = xr.where(ds_in_pr.tasmax.isel(time=slice(0,60)).mean(dim="time", 
+                                                                   skipna=True) 
+                        >= -990, 1, np.nan).compute()
+        print("*** Loading dataset {0} complete. Mask created.".format(file))
+        
+        # Calculate indicator with parallel processing
+        def parallel_loop(y):
+            cur_pr = ds_in_pr.tasmax[ds_in_pr.time.dt.year == y].load()
+            cond_25 = xr.where(cur_pr >= 25, 1, 0).sum(dim="time", skipna=True)
+            cond_30 = xr.where(cur_pr >= 30, 1, 0).sum(dim="time", skipna=True)
+            cond_35 = xr.where(cur_pr >= 35, 1, 0).sum(dim="time", skipna=True)
+            return cond_25, cond_30, cond_35
+
+        parallel_results = Parallel(n_jobs=8, prefer="threads")(delayed(parallel_loop)(y) for y in years)
+        sd_25 = [x[0] for x in parallel_results]
+        hd_30 = [x[1] for x in parallel_results]
+        hd_35 = [x[2] for x in parallel_results]
+        sd_25 = xr.combine_nested(sd_25, concat_dim="time", coords='minimal')
+        hd_30 = xr.combine_nested(hd_30, concat_dim="time", coords='minimal')
+        hd_35 = xr.combine_nested(hd_35, concat_dim="time", coords='minimal')
+
+        sd_25 = (sd_25 * mask).compute()  
+        hd_30 = (hd_30 * mask).compute()
+        hd_35 = (hd_35 * mask).compute()
+
+
+        print("--> Calculation of indicators for dataset {0} complete".format(file))
+                
+        # Add CF-conformal metadata
+        
+        # Attributes for the indicator variables:
+        attr_dict = {"coordinates": "time lat lon", 
+                     "grid_mapping": "crs", 
+                     "standard_name": "number_of_days_with_air_temperature_above_threshold", 
+                        "units": "1"}
+        sd_25.attrs = attr_dict
+        hd_30.attrs = attr_dict
+        hd_35.attrs = attr_dict
+
+        sd_25.attrs.update({"cell_methods":"time: sum over days "
+                     "(days exceeding tmax of 25°C)",
+                      "long_name": "Days exceeding daily maximum temperature of 25°C" })
+        hd_30.attrs.update({"cell_methods":"time: sum over days "
+                     "(days exceeding tmax of 30°C)", 
+                     "long_name": "Days exceeding daily maximum temperature of 30°C"})
+        hd_35.attrs.update({"cell_methods":"time: sum over days "
+                     "(days exceeding tmax of 35°C)", 
+                     "long_name": "Days exceeding daily maximum temperature of 35°C"})
+
+        time_resampled = ds_in_pr.time.resample(time="A")
+        start_inds = np.array([x.start for x in time_resampled.groups.values()])
+        end_inds = np.array([x.stop for x in time_resampled.groups.values()])
+        end_inds[-1] = ds_in_pr.time.size
+        end_inds -= 1
+        start_inds = start_inds.astype(np.int32)
+        end_inds = end_inds.astype(np.int32)
+        
+        sd_25.coords["time"] = ds_in_pr.time[end_inds]
+        hd_30.coords["time"] = ds_in_pr.time[end_inds]
+        hd_35.coords["time"] = ds_in_pr.time[end_inds]
+                                                
+        sd_25.time.attrs.update({"climatology":"climatology_bounds"})
+        hd_30.time.attrs.update({"climatology":"climatology_bounds"})
+        hd_35.time.attrs.update({"climatology":"climatology_bounds"})
+        
+        # Encoding and compression
+        encoding_dict = {"_FillValue":-32767, "dtype":np.int16, 'zlib': True,
+                         'complevel': 1, 'fletcher32': False, 
+                         'contiguous': False}
+        
+        sd_25.encoding = encoding_dict
+        hd_30.encoding = encoding_dict
+        hd_35.encoding = encoding_dict
+                                
+        # Climatology variable
+        climatology_attrs = {'long_name': 'time bounds', 'standard_name': 'time'}
+        climatology = xr.DataArray(np.stack((ds_in_pr.time[start_inds],
+                                                ds_in_pr.time[end_inds]), 
+                                            axis=1), 
+                                    coords={"time": sd_25.time, 
+                                            "nv": np.arange(2, dtype=np.int16)},
+                                    dims = ["time","nv"], 
+                                    attrs=climatology_attrs)
+            
+        climatology.encoding.update({"dtype":np.float64,'units': ds_in_pr.time.encoding['units'],
+                                     'calendar': ds_in_pr.time.encoding['calendar']})
+        
+        crs = xr.DataArray(np.nan, attrs=ds_in_pr[crsvar].attrs)
+        mname = file.replace(".nc","")
+        modelname = "_".join(mname.split("/")[-1].split("_")[2:6])
+
+        file_attrs = {'title': 'Heat Days',
+         'institution': 'Institute of Meteorology and Climatology, University of '
+         'Natural Resources and Life Sciences, Vienna, Austria',
+         'source': modelname,
+         'comment': 'File containing three indicators for different tmax thresholds: Summer days (25°C), heat days (30°C), desert days (35°C)',
+         'Conventions': 'CF-1.8'}
+        
+        ds_out = xr.Dataset(data_vars={"heatdays_35": hd_35,
+                                       "heatdays_30": hd_30,
+                                       "summerdays_25": sd_25,
+                                       "climatology_bounds": climatology, 
+                                       "crs": crs,
+                                       "lat": ds_in_pr.lat,
+                                       "lon": ds_in_pr.lon}, 
+                            coords={"time":sd_25.time, "y": ds_in_pr.y,
+                                    "x":ds_in_pr.x},
+                            attrs=file_attrs)
+        
+        if path_out.endswith("/"):
+            None
+        else:
+            path_out += "/"
+        outf = path_out + "Heatdays_" + modelname + "_annual_{0}-{1}.nc".format(min(years), max(years))
+        if os.path.isfile(outf):
+            print("File {0} already exists. Removing...".format(outf))
+            os.remove(outf)
+        
+        # Write final file to disk
+        ds_out.to_netcdf(outf, unlimited_dims="time")
+        print("Writing file {0} completed!".format(outf))
+        ds_in_pr.close()
+        ds_out.close()
+    print("Successfully processed all input files!")
+main()

@@ -23,9 +23,9 @@ def check_isfile(fname):
     return file_out
 
 # user specified paths and data
-gwls = [0.856, 1.362, 2.422, 3.381]
+gwls = [1.272, 1.894, 2.954, 3.983] # data for 90th percentile of CMIP6 data
 path_oeks15 = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/oeks15_anomalies/"
-outf = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_OEKS15.csv"
+outf = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_OEKS15_p90.csv"
 
 # create summary csv file for CMIP5 OEKS15 GWLs
 outfile = check_isfile(outf)

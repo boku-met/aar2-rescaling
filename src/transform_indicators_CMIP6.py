@@ -17,16 +17,16 @@ except: # nice level already above 8
 
 # user specified paths and data
 gwls = [1.5, 2.0, 3.0, 4.0]
-path_indicator = "/metstor_nfs/home/bennib/Bennib/Indicators/"
-path_lookup_table = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_OEKS15_lookup_table.csv"
-path_outfile = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
+path_indicator = "/metstor_nfs/home/bennib/Bennib/HotSpotKlim/HotSpotKlim_Salzburg/Data/Indicators/"
+path_lookup_table = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_OEKS15_lookup_table.csv"
+path_outfile = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
 
-searchterm_indicator = "pr_SDM"
-varname_indicator = "pr"
+searchterm_indicator = "precipitation_intensity_"
+varname_indicator = "precipitation_intensity_daily"
 aggregate_method = "" # pick "mean" or "sum" to determine the method of aggregation to annual values
 
 # please choose mask according to dataset the indicator is based on
-f_mask = xr.open_dataset("/nas5/Projects/OEK15/tas_daily/tas_SDM_CNRM-CERFACS-CNRM-CM5_rcp45_r1i1p1_CNRM-ALADIN53.nc")
+f_mask = xr.open_dataset("/nas/nas5/Projects/OEK15/tas_daily/tas_SDM_CNRM-CERFACS-CNRM-CM5_rcp45_r1i1p1_CNRM-ALADIN53.nc")
 mask = xr.where(f_mask.tas[0:30,:,:].mean(dim = "time", skipna = True) > -999, 1, np.nan)
 
 infiles = sorted(glob.glob(path_indicator+"*"+searchterm_indicator+"*.nc"))
@@ -90,18 +90,18 @@ for i, gwl in enumerate(gwls):
     file_attrs = {'title': 'Ensemble for indicator <{0}>, conforming to the global warming level of {1}°C'.format(varname_indicator, gwl),
                   'institution': 'Institute of Meteorology and Climatology, University of Natural Resources and Life Sciences, Vienna, Austria',
                   'source': 'ÖKS15 Austrian climate scenarios',
-                  'comment': "Global warming levels are calculated from CMIP5 models. Time resolution: Annual. The time coordinate is randomly taken from the input ensemble, but is not relevant for all ensemble members",
+                  'comment': "Global warming levels are calculated from CMIP6 models. Time resolution: Annual. The time coordinate is randomly taken from the input ensemble, but is not relevant for all ensemble members",
                   'Conventions': 'CF-1.8'}
     
     fout = xr.Dataset({varname_indicator: gwl_ensemble, 
                        "{0}_reference_period_1991_2020".format(varname_indicator):ref_period_ensemble,
                         "{0}_anomalies".format(varname_indicator) : anomalies_ensemble,
-                       'crs': f1.crs, 
+                       'crs': f1.lambert_conformal_conic, # careful to check correct name! 
                        "lat": f1.lat, "lon": f1.lon}, 
                       coords={"ens": ensemble_info, "time": gwl_ensemble.time, 
                               "y": gwl_ensemble.y, "x": gwl_ensemble.x},
                       attrs= file_attrs)
-    outf = path_outfile+"{0}_CMIP5_GWL_{1}degC.nc".format(varname_indicator, str(gwl).replace(".",""))
+    outf = path_outfile+"{0}_CMIP6_GWL_{1}degC.nc".format(varname_indicator, str(gwl).replace(".",""))
     if os.path.isfile(outf):
         print("File {0} already exists. Overwriting...".format(outf))
         os.remove(outf)
