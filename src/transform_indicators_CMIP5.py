@@ -17,12 +17,12 @@ except: # nice level already above 8
 
 # user specified paths and data
 gwls = [1.5, 2.0, 3.0, 4.0]
-path_indicator = "/metstor_nfs/home/bennib/Bennib/HotSpotKlim/HotSpotKlim_Salzburg/Data/Indicators/"
+path_indicator = "/hp8/Projekte_Benni/Temp_Data/Indicators/"
 path_lookup_table = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_OEKS15_lookup_table.csv"
 path_outfile = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
 
-searchterm_indicator = "precipitation_intensity_"
-varname_indicator = "precipitation_intensity_daily"
+searchterm_indicator = "tas_*annual*"
+varname_indicator = "tas"
 aggregate_method = "" # pick "mean" or "sum" to determine the method of aggregation to annual values
 
 # please choose mask according to dataset the indicator is based on
@@ -96,7 +96,7 @@ for i, gwl in enumerate(gwls):
     fout = xr.Dataset({varname_indicator: gwl_ensemble, 
                        "{0}_reference_period_1991_2020".format(varname_indicator):ref_period_ensemble,
                         "{0}_anomalies".format(varname_indicator) : anomalies_ensemble,
-                       'crs': f1.lambert_conformal_conic, 
+                       'crs': f1.crs, 
                        "lat": f1.lat, "lon": f1.lon}, 
                       coords={"ens": ensemble_info, "time": gwl_ensemble.time, 
                               "y": gwl_ensemble.y, "x": gwl_ensemble.x},
