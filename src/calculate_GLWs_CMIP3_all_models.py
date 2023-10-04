@@ -18,7 +18,7 @@ def check_isfile(fname):
 path_cmip5_models = "/hpx/Bennib/CMIP3_data_temp/Scenarios/"
 path_cmip5_hist = "/hpx/Bennib/CMIP3_data_temp/Historical/"
 
-gwls = [2035, 2050, 2088]
+gwls = [1.5, 2.0, 3.0, 4.0]
 
 for rcp in  ["B1", "A1B", "A2"]:
     # create filelist for each rcp
@@ -47,16 +47,20 @@ for rcp in  ["B1", "A1B", "A2"]:
         anomalies_smooth = anomalies.rolling(time = 20, center = True, min_periods = 20).mean(skipna = True).compute()
         print("Done!")
         mean_years = []
+        gwl_list = []
         for gwl in gwls:
             try:
-                timeind = anomalies_smooth.time.dt.year == gwl
-                mean_year = anomalies_smooth[timeind].values
+                timeind = (anomalies_smooth.values >= gwl).nonzero()[0][0]
+                mean_year = anomalies_smooth[timeind].time.dt.year.values
+                period = "{0}-{1}".format(mean_year-10, mean_year+9)
                 # add data to lists
                 mean_years.append(str(mean_year))
+                gwl_list.append(period)
             except IndexError:
-                mean_years.append("n/a")        
+                mean_years.append("n/a")    
+                gwl_list.append("n/a")    
         modelname = file.split("/")[-1].replace("tas_","").replace(".nc","")
-        print("{0};{1};{2};{3}\n".format(modelname, *mean_years))
+        print("{0};{1};{2};{3};{4};{5};{6};{7};{8}\n".format(modelname, *mean_years, *gwl_list))
 
 
 
