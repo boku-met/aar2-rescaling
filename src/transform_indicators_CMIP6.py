@@ -21,9 +21,9 @@ path_indicator = "/hp8/Projekte_Benni/Temp_Data/Indicators/"
 path_lookup_table = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_OEKS15_lookup_table.csv"
 path_outfile = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
 
-searchterm_indicator = "tas_*annual*"
-varname_indicator = "tas"
-aggregate_method = "" # pick "mean" or "sum" to determine the method of aggregation to annual values
+searchterm_indicator = "HeavyPrecipitationDays"
+varname_indicator = "very_heavy_precipitation_days_20mm"
+aggregate_method = "sum" # pick "mean" or "sum" to determine the method of aggregation to annual values
 
 # please choose mask according to dataset the indicator is based on
 f_mask = xr.open_dataset("/nas/nas5/Projects/OEK15/tas_daily/tas_SDM_CNRM-CERFACS-CNRM-CM5_rcp45_r1i1p1_CNRM-ALADIN53.nc")
