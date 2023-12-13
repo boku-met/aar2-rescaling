@@ -21,8 +21,8 @@ path_indicator = "/hp8/Projekte_Benni/Temp_Data/Indicators/"
 path_lookup_table = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_OEKS15_lookup_table.csv"
 path_outfile = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
 
-searchterm_indicator = "precipitation_intensity_"
-varname_indicator = "precipitation_intensity"
+searchterm_indicator = "Wetdays_"
+varname_indicator = "wet_days_1mm"
 aggregate_method = "" # pick "mean" or "sum" to determine the method of aggregation to annual values
 
 # please choose mask according to dataset the indicator is based on
@@ -35,6 +35,7 @@ lookup_table = [x.replace("\n","") for x in lookup_table]
 
 sns = ['DJF', 'JJA', 'MAM', 'SON']
 for sn in sns:
+    #infiles = sorted(glob.glob(path_indicator+"*"+searchterm_indicator+"*"+"seasonal_"+sn+"*.nc"))
     for i, gwl in enumerate(gwls):
         ensemble_info = []
         indicator_data = []
@@ -58,8 +59,8 @@ for sn in sns:
                                 None
                         curind = ((f1.time.dt.year >= int(p_start)) & (f1.time.dt.year <= int(p_end))) & (f1.time.dt.season == sn)
                         curind_refperiod = ((f1.time.dt.year >= 1991) & (f1.time.dt.year <= 2020)) & (f1.time.dt.season == sn)
-                        ind_slice = f1[varname_indicator][curind,:,:].resample(time="A", skipna=True).mean()
-                        ind_ref_period = f1[varname_indicator][curind_refperiod,:,:].resample(time="A", skipna=True).mean()
+                        ind_slice = f1[varname_indicator][curind,:,:].resample(time="A", skipna=True).sum()
+                        ind_ref_period = f1[varname_indicator][curind_refperiod,:,:].resample(time="A", skipna=True).sum()
                         ind_ref_period_mean = ind_ref_period.mean(dim="time", skipna=True)
                         if ind_slice.time.size > 20:
                             if aggregate_method == "mean":
