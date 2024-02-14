@@ -36,7 +36,15 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
         max_yr = f1_proj.time[-1].dt.year.values
 
         f1 = xr.concat([f1_hist.sel(time=slice(str(min_yr), "2005")), f1_proj.sel(time=slice("2006", str(max_yr)))], dim="time", data_vars='minimal', coords='minimal', compat='override')
-
+        try:
+            timetest = f1.time.sel(time="2005-12")
+        except Exception:
+            print("Found ya! "+file_hist[0])
+            print(file)
+            f1 = xr.concat([f1_hist.sel(time=slice(str(min_yr), "2005-11")), 
+                            f1_proj.sel(time=slice("2005-12", str(max_yr)))],
+                            dim="time", data_vars='minimal', coords='minimal', 
+                            compat='override')
         weights = np.cos(np.deg2rad(f1.lat))
         tas_weighted = f1.tas.weighted(weights)
         series_global = tas_weighted.mean(dim=('lat', 'lon'), skipna=True).compute()

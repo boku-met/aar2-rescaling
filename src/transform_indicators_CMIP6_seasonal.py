@@ -35,6 +35,7 @@ lookup_table = [x.replace("\n","") for x in lookup_table]
 
 sns = ['DJF', 'JJA', 'MAM', 'SON']
 for sn in sns:
+    #infiles = sorted(glob.glob(path_indicator+"*"+searchterm_indicator+"*"+"seasonal_"+sn+"*.nc"))
     for i, gwl in enumerate(gwls):
         ensemble_info = []
         indicator_data = []
