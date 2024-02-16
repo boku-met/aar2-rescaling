@@ -18,7 +18,7 @@ def check_isfile(fname):
 path_cmip5_models = "/hpx/Bennib/CMIP3_data_temp/Scenarios/"
 path_cmip5_hist = "/hpx/Bennib/CMIP3_data_temp/Historical/"
 
-gwls = [1.5, 2.0, 3.0, 4.0]
+gwls = [1.0, 1.5, 2.0, 3.0, 4.0]
 
 for rcp in  ["B1", "A1B", "A2"]:
     # create filelist for each rcp
@@ -60,7 +60,7 @@ for rcp in  ["B1", "A1B", "A2"]:
                 mean_years.append("n/a")    
                 gwl_list.append("n/a")    
         modelname = file.split("/")[-1].replace("tas_","").replace(".nc","")
-        print("{0};{1};{2};{3};{4};{5};{6};{7};{8}\n".format(modelname, *mean_years, *gwl_list))
+        print("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10}\n".format(modelname, *mean_years, *gwl_list))
 
 
 
