@@ -98,10 +98,14 @@ axs.boxplot(vis_data, positions=[1,2, 3.5, 4.5, 6,7,8.5,9.5], widths=0.8,patch_a
 axs.tick_params(labelsize=14)
 axs.set_ylabel("Change in number of days in Kysely periods (Vienna, AT)", fontsize = 14, labelpad=10)
 axs.set_xlabel("Ensembles grouped after GWL", fontsize = 14, labelpad=15)
-axs.set_xticklabels(["1.5°C(CMIP5)", "1.5°C(CMIP6)", "2.0°C(CMIP5)", "2.0°C(CMIP6)",
-                     "3.0°C(CMIP5)", "3.0°C(CMIP6)", "4.0°C(CMIP5)", "4.0°C(CMIP6)"],
+axs.set_xticklabels(["GWL1.5 CMIP5", "GWL1.5 CMIP6", "GWL2.0 CMIP5", "GWL2.0 CMIP6",
+                     "GWL3.0 CMIP5", "GWL3.0 CMIP6", "GWL4.0 CMIP5", "GWL4.0 CMIP6"],
                     rotation=45, fontsize=12)
+
+#axs.yaxis.set_minor_locator(MultipleLocator(0.125)) # set minor tick spacing
+#axs.tick_params(axis="y", which = "minor", length = 0) #hide minor ticks
 axs.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.7)
+
 #axs.set(axisbelow=True)
 plt.title("Annual mean temperature anomalies in Austria relative to 1991-2020\nfor OEKS15 and CMIP5 background models at four GWLs", fontsize = 16, pad = 15)
 

@@ -1,7 +1,7 @@
 import os
 import glob
 import copy
-from joblib import Parallel, delayed
+from multiprocessing.pool import Pool
 import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
@@ -48,7 +48,13 @@ def paralell_loop(f):
     f1 = xr.open_dataset(f)    
     area_sample = f1.heatdays_30.sel(y=slice(ymin, ymax), x=slice(xmin, xmax)).mean(dim=("y","x"), skipna=True)
     return area_sample.values
-par_results = Parallel(n_jobs=12)(delayed(paralell_loop)(f) for f in infiles_gwls)
+if __name__ == '__main__':
+    # create and configure the process pool
+    with Pool(12) as pool:
+        # execute tasks, block until all completed
+        par_results = pool.map(paralell_loop, infiles_gwls)
+    # process pool is closed automatically
+
 vis_data_cm5 = [x.flatten() for x in par_results]
 
 fig, axs = plt.subplots(figsize = (11, 6))
@@ -65,6 +71,9 @@ axs.set_ylabel("Anzahl der Hitzetage im Jahr", fontsize = 14, labelpad=10)
 axs.set_xlabel("Gruppiert nach Perioden: 2030, 2050 und 2090", fontsize = 14, labelpad=15)
 axs.set_xticklabels(["RCP2.6", "RCP4.5", "RCP8.5", "RCP2.6", "RCP4.5", "RCP8.5", "RCP2.6", "RCP4.5", "RCP8.5"],
                     rotation=45, fontsize=12)
+
+#axs.yaxis.set_minor_locator(MultipleLocator(0.125)) # set minor tick spacing
+#axs.tick_params(axis="y", which = "minor", length = 0) #hide minor ticks
 axs.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5)
 #axs.set(axisbelow=True)
 plt.title("Anzahl der jährlichen Hitzetage in Wien, gegliedert nach Periode und RCP", fontsize = 16, pad = 15)
@@ -84,6 +93,9 @@ axs.tick_params(labelsize=14)
 axs.set_ylabel("Anzahl der Hitzetage im Jahr", fontsize = 14, labelpad=10)
 axs.set_xticklabels(["GWL 1.5 °C", "GWL 2.0 °C", "GWL 3.0 °C", "GWL 4.0 °C"],
                     rotation=45, fontsize=12)
+
+#axs.yaxis.set_minor_locator(MultipleLocator(0.125)) # set minor tick spacing
+#axs.tick_params(axis="y", which = "minor", length = 0) #hide minor ticks
 axs.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5)
 #axs.set(axisbelow=True)
 plt.title("Anzahl der jährlichen Hitzetage in Wien,\n gegliedert nach global warming level", fontsize = 16, pad = 15)

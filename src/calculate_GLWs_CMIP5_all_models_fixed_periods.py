@@ -20,7 +20,7 @@ path_cmip5_hist = "/hpx/Bennib/CMIP5_data_temp/CMIP5_all_hist/"
 
 gwls = [2035, 2050, 2088]
 
-for rcp in  ["rcp26", "rcp45", "rcp85"]:
+for rcp in  ["rcp26", "rcp45", "rcp60", "rcp85"]:
     # create filelist for each rcp
     infiles = sorted(glob.glob(path_cmip5_models+"tas_*"+rcp+"*.nc"))
     for file in infiles:
@@ -64,7 +64,7 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
             except IndexError:
                 mean_years.append("n/a")        
         modelname = file.split("/")[-1].replace("tas_","").replace(".nc","")
-        print("{0};{1};{2};{3}\n".format(modelname, *mean_years))
+        print("{0};{1};{2};{3};{4}\n".format(modelname,rcp, *mean_years))
 
 
 

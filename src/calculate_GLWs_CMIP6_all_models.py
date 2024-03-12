@@ -28,15 +28,15 @@ lonmin=9.5
 lonmax=17
 
 # user specified paths and data
-gwls = [1.5, 2.0, 3.0, 4.0, 5.0]
+gwls = [1.0, 1.5, 2.0, 3.0, 4.0, 5.0]
 path_cmip6_models = "/hpx/Bennib/CMIP6_data_temp/Projection/"
 path_cmip6_hist = "/hpx/Bennib/CMIP6_data_temp/Historic/"
 outf = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_all_models.csv"
 
 # create summary csv file for CMIP5 OEKS15 GWLs
 outfile = check_isfile(outf)
-outfile.write("Model;Mean year per GWL;;;;;Period per GWL;;;;;AUT GCM CCS 1991-2020\n")
-outfile.write("GCM (CMIP6);1.5°C;2.0°C;3.0°C;4.0°C;5.0°C;1.5°C;2.0°C;3.0°C;4.0°C;5.0°C;1.5°C;2.0°C;3.0°C;4.0°C;5.0°C\n")
+outfile.write("Model;Mean year per GWL;;;;;;Period per GWL;;;;;;AUT GCM CCS 1991-2020\n")
+outfile.write("GCM (CMIP6);1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;5.0°C;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;5.0°C;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;5.0°C\n")
     
 for rcp in  ["ssp119", "ssp126", "ssp245", "ssp370", "ssp585"]:
     # create filelist for each ssp
@@ -101,7 +101,7 @@ for rcp in  ["ssp119", "ssp126", "ssp245", "ssp370", "ssp585"]:
         
         # write data to files
         modelname = file.split("/")[-1].replace("tas_Amon_","").replace(".nc","")
-        outfile.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15}\n".format(modelname, *mean_years, *gwl_list, *ccs_aut_gcm))
+        outfile.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18}\n".format(modelname, *mean_years, *gwl_list, *ccs_aut_gcm))
         print("Writing data for model {0} finished!".format(file))
 outfile.close()
 print("Writing file {0} complete!".format(outf))
