@@ -35,10 +35,10 @@ outf = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMI
 
 # create summary csv file for CMIP5 OEKS15 GWLs
 outfile = check_isfile(outf)
-outfile.write("Model;Mean year per GWL;;;;;Period per GWL;;;;;AUT GCM CCS 1991-2020\n")
-outfile.write("GCM (CMIP5);1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C\n")
+outfile.write("Model;;Mean year per GWL;;;;;Period per GWL;;;;;AUT GCM CCS 1991-2020\n")
+outfile.write("GCM (CMIP5);RCP;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C\n")
     
-for rcp in  ["rcp26", "rcp45", "rcp85"]:
+for rcp in  ["rcp26", "rcp45", "rcp60","rcp85"]:
     # create filelist for each rcp
     infiles = sorted(glob.glob(path_cmip5_models+"tas_*"+rcp+"*.nc"))
     for file in infiles:
@@ -102,7 +102,7 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
         
         # write data to files
         modelname = file.split("/")[-1].replace("tas_Amon_","").replace(".nc","")
-        outfile.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15}\n".format(modelname, *mean_years, *gwl_list, *ccs_aut_gcm))
+        outfile.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16}\n".format(modelname,rcp, *mean_years, *gwl_list, *ccs_aut_gcm))
 
 outfile.close()
 print("Writing file {0} complete!".format(outf))
