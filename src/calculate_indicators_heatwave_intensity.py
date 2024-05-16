@@ -7,7 +7,7 @@ Created on Tue May 31 12:04:42 2022
 """
 import os
 import glob
-from joblib import Parallel, delayed
+from multiprocessing.pool import Pool
 import numpy as np
 import xarray as xr
 
@@ -56,8 +56,13 @@ def main():
             d5_mean = cur_pr.rolling(time=5, min_periods=5, center=True).mean(skipna=True)
             d5_mean_tmax = d5_mean.max(dim="time", skipna=True)
             return d5_mean_tmax
-
-        parallel_results = Parallel(n_jobs=8, prefer="threads")(delayed(parallel_loop)(y) for y in years)
+        
+        if __name__ == '__main__':
+            # create and configure the process pool
+            with Pool(18) as pool:
+                # execute tasks, block until all completed
+                parallel_results = pool.map(parallel_loop, years)
+            # process pool is closed automatically
         pr_annual = xr.combine_nested(parallel_results, concat_dim="time", coords='minimal')
 
         pr_annual = (pr_annual * mask).compute()

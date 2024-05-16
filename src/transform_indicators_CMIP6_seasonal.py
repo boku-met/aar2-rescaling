@@ -21,15 +21,15 @@ path_indicator = "/hp8/Projekte_Benni/Temp_Data/Indicators/"
 path_lookup_table = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_OEKS15_lookup_table.csv"
 path_outfile = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
 
-searchterm_indicator = "Wetdays_"
-varname_indicator = "wet_days_1mm"
+searchterm_indicator = "pr_"
+varname_indicator = "pr"
 aggregate_method = "" # pick "mean" or "sum" to determine the method of aggregation to annual values
 
 # please choose mask according to dataset the indicator is based on
 f_mask = xr.open_dataset("/nas/nas5/Projects/OEK15/tas_daily/tas_SDM_CNRM-CERFACS-CNRM-CM5_rcp45_r1i1p1_CNRM-ALADIN53.nc")
 mask = xr.where(f_mask.tas[0:30,:,:].mean(dim = "time", skipna = True) > -999, 1, np.nan)
 
-infiles = sorted(glob.glob(path_indicator+"*"+searchterm_indicator+"*.nc"))
+infiles = sorted(glob.glob(path_indicator+"*"+searchterm_indicator+"*monthly*.nc"))
 lookup_table = open(path_lookup_table, mode="rt")
 lookup_table = [x.replace("\n","") for x in lookup_table]
 
