@@ -10,6 +10,7 @@ import glob
 from multiprocessing.pool import Pool
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 import cartopy.crs as ccrs
 import numpy as np
 import xarray as xr
@@ -21,12 +22,12 @@ except: # nice level already above 8
 
 path_to_indicators_cm5 = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/CMIP5/"
 path_to_indicators_cm6 = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/CMIP6/"
-path_mask_spartacus = "/hp8/Projekte_Benni/Fluvial_processes/data/masks/mask_AT_spartacus_v2.nc"
+path_mask_spartacus = "/sto0/data/Input/Gridded/SPARTACUS/V2.1/TN/TN_19610101_20221031.nc"
 
-path_to_obs = "/hp8/Projekte_Benni/Temp_Data/Indicators/pr_SPARTACUS_annual_1961-2021.nc"
-lookup_name = "pr_CMIP5_GWL_"
-searchterm_indicators = "pr"
-searchterm_refperiod = "pr"
+path_to_obs = "/sto0/data/Results/Indicators/extreme_precipitation_SPARTACUS_seasonal_*"
+lookup_name = "extreme_precipitation_*"
+searchterm_indicators = "extreme_precipitation"
+searchterm_refperiod = "extreme_precipitation"
 
 # for defining the point in the time period
 quantile = 0.5
@@ -36,8 +37,9 @@ infiles_cm6 = sorted(glob.glob(path_to_indicators_cm6+lookup_name+"*.nc"))
 
 # if needed, load reference period
 f_mask_spart = xr.open_dataset(path_mask_spartacus)
-mask_spart = xr.where(f_mask_spart.Band1 == 1, 1, np.nan)
+mask_spart = xr.where(f_mask_spart.mask == 1, 1, np.nan)
 
+# check if season is calculated correctly
 f_ref_period = xr.open_dataset(path_to_obs).sel(time=slice("1991","2020"))
 #f_ref_period = f_ref_period.resample(time="A", skipna=True).sum(dim="time", skipna=True)
 vis_data_refperiod = f_ref_period[searchterm_refperiod].mean(dim="time", skipna=True)
@@ -60,11 +62,6 @@ if __name__ == '__main__':
 f1 = xr.open_dataset(infiles_cm5[0])
 vis_data_cm5 = xr.DataArray(par_results, coords={"GWL":["1.5","2.0", "3.0","4.0"], "y": f1.y, "x": f1.x})
 
-#lats = xr.DataArray(f1.lat[:,0].values, coords={"y":f1.y})
-#lons = xr.DataArray(f1.lon[0,:].values, coords = {"x": f1.x})
-#vis_data.coords["lat"] = lats
-#vis_data.coords["lon"] = lons
-
 #simple quicklook
 g = vis_data_cm5.plot(x = "x", y = "y", col="GWL", col_wrap=2, aspect = 1.9, size = 3, 
                   cmap="Oranges", cbar_kwargs={"label": "Cooling degree days"}, levels = 9)
@@ -78,12 +75,12 @@ plt.legend()
 vis_data_refperiod.plot.hist()
 
 # create colors for colorbar
-lvls = 16
+lvls = 10
 cmap = plt.cm.BrBG.resampled(lvls)
 lst = cmap(np.linspace(0,1,lvls))
 #lst = np.insert(lst, 0,[0.8,0.8,0.8,1], axis = 0) # insert grey at position 0
 custom_clrs = [mpl.colors.to_hex(x, keep_alpha=True) for x in lst]
-custom_clrs = custom_clrs[6:]
+custom_clrs = custom_clrs[3:]
 
 # create colors for reference colorbar
 lvls_refcbar = 8
@@ -97,20 +94,13 @@ custom_clrs_refcbar = [mpl.colors.to_hex(x, keep_alpha=True) for x in lst]
 level = [-6, -2, 0, 2, 4, 6, 8, 10, 12, 14]
 custom_ticks = [-2, 0, 2, 4, 6, 8, 10, 12, 14]
 tick_labels = ["-2", "0", "2", "4", "6", "8", "10", "12", "14"]
+
 level_refcbar = [200, 500, 750, 1000, 1250, 1500, 1750, 2000]
 custom_ticks_refcbar = [500, 750, 1000, 1250, 1500, 1750, 2000]
 
-
-# setting map x and y labels
-xtickspacing = 100000
-ytickspacing = 100000
-xoffset = 11500
-yoffset = 8500+67000 
-xticks = np.arange(vis_data_cm5.x.min()-xoffset+xtickspacing, vis_data_cm5.x.max(), xtickspacing)
-yticks = np.arange(vis_data_cm5.y.min()-yoffset+ytickspacing, vis_data_cm5.y.max(), ytickspacing)
-
-# setting projection
+# setting projections
 proj = ccrs.epsg(31287)
+gridcrs = ccrs.Geodetic()
 
 #calculating values for annotation
 gwls = vis_data_cm5.coords["GWL"].values
@@ -130,14 +120,18 @@ for gwl in gwls:
     #                 vis_data_cm6.sel(GWL=lv).mean(skipna=True).values.round(1), 
     #                 vis_data_cm6.sel(GWL=lv).max().values.round(1)))
 
+# start plotting the figure
 fig, axs = plt.subplots(ncols=2, nrows=2, 
                             subplot_kw=dict(projection=proj), 
                             figsize = (12,7), 
                             layout = 'constrained')
 for gwl, axis in zip(vis_data_cm5.coords["GWL"].values, axs.flat):
     im = vis_data_cm5.sel(GWL=gwl).plot.imshow(ax = axis, add_colorbar = False, colors = custom_clrs, levels = level)
-    axis.gridlines(crs = proj, xlocs = xticks, ylocs = yticks)
-    axis.set(yticks = yticks, ylabel = "y", xticks = xticks, xlabel = "x", title = "GWL"+gwl)
+    gl = axis.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
+                        xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
+    gl.top_labels = False
+    gl.right_labels = False
+    axis.set(ylabel = "lat", xlabel = "lon", title = "GWL"+gwl)
     axis.text(180000,450000, "Min: {0}\nMean: {1}\nMax: {2}".format(*values_cmip5[gwl]), 
                  style='italic', bbox={'facecolor': 'white'})
     
@@ -155,9 +149,13 @@ plt.savefig(outpath,dpi=600, bbox_inches ="tight")
 # Single plots 
 fig, axs = plt.subplots(subplot_kw=dict(projection=proj), layout = 'constrained', figsize = (8,4))
 im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, 
-                                    cbar_kwargs={"label": "Precipitation (mm)", "spacing": 'uniform', "ticks": custom_ticks_refcbar})
-axs.gridlines(crs = proj, xlocs = xticks, ylocs = yticks)
-axs.set(yticks = yticks, ylabel = "y", xticks = xticks, xlabel = "x")
+                                    cbar_kwargs={"label": "Precipitation (mm)", 
+                                                 "spacing": 'uniform', "ticks": custom_ticks_refcbar})
+gl = axis.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
+                        xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
+gl.top_labels = False
+gl.right_labels = False
+axs.set(ylabel = "lat", xlabel = "lon")
 axs.text(180000,450000, "Min: {0}\nMean: {1}\nMax: {2}".format(*values_refperiod), 
                  style='italic', bbox={'facecolor': 'white'})
 
@@ -166,3 +164,79 @@ fig.get_layout_engine().set(h_pad = 0.11, w_pad = 0.11)
 
 outpath = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/plots/SOD_plots/maps_pr_obs_reference_period.png"
 plt.savefig(outpath,dpi=600, bbox_inches ="tight")
+
+
+
+
+# Single plots, seasonal from monthly data
+
+f_mask_spart = xr.open_dataset(path_mask_spartacus)
+mask_spart = xr.where(f_mask_spart.mask == 1, 1, np.nan)
+
+# check if season is calculated correctly
+seasons = ["DJF", "JJA", "SON", "MAM"]
+
+# create colors for reference colorbar
+lvls_refcbar = 7
+cmap_refcbar = plt.cm.PuBuGn.resampled(lvls_refcbar)
+lst = cmap_refcbar(np.linspace(0,1,lvls_refcbar))
+#lst = np.insert(lst, 0,[0.8,0.8,0.8,1], axis = 0) # insert grey at position 0
+custom_clrs_refcbar = [mpl.colors.to_hex(x, keep_alpha=True) for x in lst]
+#custom_clrs_refcbar = custom_clrs_refcbar[3:]
+
+#setting colorbar ticks and labels
+level_refcbar = [-20, 20, 40, 60, 80, 100, 120]
+custom_ticks_refcbar = [20, 40, 60, 80, 100, 120]
+
+
+# setting map x and y labels
+xtickspacing = 100000
+ytickspacing = 100000
+xoffset = 12500
+yoffset = 58500 
+xticks = np.arange(f_ref_period.x.min()-xoffset+xtickspacing, f_ref_period.x.max(), xtickspacing)
+yticks = np.arange(f_ref_period.y.min()-yoffset+ytickspacing, f_ref_period.y.max(), ytickspacing)
+
+# lat and long ticks
+#lats = np.arange(46, 50, 0.5)
+#lons = np.arange(9, 18, 0.5)
+
+# setting projection
+proj = ccrs.epsg(31287)
+
+# for single obs files
+#f_ref_period = xr.open_dataset(path_to_obs).sel(time=slice("1991","2020"))
+for sn in seasons:
+    # for seasonally split obs files
+    infiles_obs = sorted(glob.glob(path_to_obs+sn+"*.nc"))
+    f_ref_period = xr.open_dataset(infiles_obs[0]).sel(time=slice("1991","2020"))
+
+    #curind = f_ref_period.time.dt.season == sn
+
+    cur_pr = f_ref_period[searchterm_refperiod]#.resample(time="A", skipna = True).sum(dim="time", skipna = True)
+    vis_data_refperiod = cur_pr.mean(dim="time", skipna=True)
+    vis_data_refperiod = (vis_data_refperiod * mask_spart).compute()
+
+    values_refperiod = (vis_data_refperiod.min().values.round(1), 
+                        vis_data_refperiod.mean(skipna=True).values.round(1), 
+                        vis_data_refperiod.max().values.round(1))
+    values_refperiod = [str(x) for x in values_refperiod]
+
+
+    fig, axs = plt.subplots(subplot_kw=dict(projection=proj), layout = 'constrained', figsize = (8,4))
+    im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, 
+                                        cbar_kwargs={"label": "Precipitation intensity (mm)", 
+                                                     "spacing": 'uniform', "ticks": custom_ticks_refcbar})
+    gl = axis.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
+                        xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
+    gl.top_labels = False
+    gl.right_labels = False
+    axs.set(ylabel = "lat", xlabel = "lon")
+    axs.text(180000,450000, "Min: {0}\nMean: {1}\nMax: {2}".format(*values_refperiod), 
+                 style='italic', bbox={'facecolor': 'white'})
+
+    fig.suptitle("Mean seasonal precipitation intensities ({0})\nin Austria for the reference period 1991-2020".format(sn), size = 13, x = 0.54)
+    fig.get_layout_engine().set(h_pad = 0.11, w_pad = 0.11)
+
+    outpath = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/plots/SOD_plots/maps_precip_intensity_obs_seasonal_{0}_reference_period.png".format(sn)
+    plt.savefig(outpath,dpi=600, bbox_inches ="tight")

@@ -29,8 +29,8 @@ lonmax=17
 
 # user specified paths and data
 gwls = [1.0, 1.5, 2.0, 3.0, 4.0]
-path_cmip5_models = "/hpx/Bennib/CMIP5_data_temp/CMIP5_all_models/"
-path_cmip5_hist = "/hpx/Bennib/CMIP5_data_temp/CMIP5_all_hist/"
+path_cmip5_models = "/sto0/data/Input/Gridded/CMIP-GCMs/CMIP5_data_temp/CMIP5_all_models/"
+path_cmip5_hist = "/sto0/data/Input/Gridded/CMIP-GCMs/CMIP5_data_temp/CMIP5_all_hist/"
 outf = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_all_models.csv"
 
 # create summary csv file for CMIP5 OEKS15 GWLs

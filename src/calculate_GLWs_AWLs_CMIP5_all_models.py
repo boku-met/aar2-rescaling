@@ -28,27 +28,23 @@ lonmin=9.5
 lonmax=17
 
 # user specified paths and data
-gwls = [2031, 2051, 2088]
-path_cmip5_models = "/sto0/data/Input/Gridded/CMIP-GCMs/CMIP5_data_temp/OEKS15_models/"
-path_cmip5_hist = "/sto0/data/Input/Gridded/CMIP-GCMs/CMIP5_data_temp/OEKS15_historical/"
-path_oeks15 = "/nas/nas5/Projects/OEK15/tas_daily/"
-outf = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_OEKS15_fixed_periods.csv"
-#outp = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/oeks15_anomalies/"
+gwls = [1.0, 1.5, 2.0, 3.0, 4.0]
+path_cmip5_models = "/sto0/data/Input/Gridded/CMIP-GCMs/CMIP5_data_temp/CMIP5_all_models/"
+path_cmip5_hist = "/sto0/data/Input/Gridded/CMIP-GCMs/CMIP5_data_temp/CMIP5_all_hist/"
+outf = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_AWLs_CMIP5_all_models.csv"
 
 # create summary csv file for CMIP5 OEKS15 GWLs
 outfile = check_isfile(outf)
-outfile.write("Linked models;;GWL per Period;;;AUT GCM CCS 1991-2020\n")
-outfile.write("GCM (CMIP5);OEKS15 ensemble member;2021-2040;2041-2060;2081-2100;2021-2040;2041-2060;2081-2100\n")
+outfile.write("Model;;Mean year per GWL;;;;;Period per GWL;;;;;AWL 1850-1900\n")
+outfile.write("GCM (CMIP5);RCP;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C;1.0°C;1.5°C;2.0°C;3.0°C;4.0°C\n")
     
-for rcp in  ["rcp26", "rcp45", "rcp85"]:
+for rcp in  ["rcp26", "rcp45", "rcp60","rcp85"]:
     # create filelist for each rcp
     infiles = sorted(glob.glob(path_cmip5_models+"tas_*"+rcp+"*.nc"))
     for file in infiles:
         # search for associated historical/oeks15 files
         search_term = file.split("/")[-1][:-17]
         search_hist = search_term.replace(rcp, "historical")
-        search_oeks15 = search_term.replace("tas_Amon_", "")
-        file_oeks15 = sorted(glob.glob(path_oeks15+"*"+search_oeks15+"*.nc"))
         file_hist = glob.glob(path_cmip5_hist+search_hist+"*.nc")
         assert(len(file_hist) == 1)
         # open files and determine time period
@@ -80,30 +76,33 @@ for rcp in  ["rcp26", "rcp45", "rcp85"]:
         series_aut = series_aut.resample(time="A", skipna=True).mean()
         # calculate anomalies and smooth timeseries
         ref_gmt = series_global.sel(time=slice(str(min_yr),"1900")).mean(skipna=True)
-        ref_amt = series_aut.sel(time = slice("1991","2020")).mean(skipna = True)
+        ref_amt = series_aut.sel(time = slice(str(min_yr),"1900")).mean(skipna = True)
         anomalies = series_global - ref_gmt
         anomalies_aut = series_aut - ref_amt
         anomalies_smooth = anomalies.rolling(time = 20, center = True, min_periods = 20).mean(skipna = True).compute()
         anomalies_aut_smooth = anomalies_aut.rolling(time = 20, center = True, min_periods = 20).mean(skipna = True).compute()
         # create data to write to list
+        gwl_list = []
         mean_years = []
         ccs_aut_gcm = []
         for gwl in gwls:
             try:
-                timeind = anomalies_smooth.time.dt.year == gwl
-                mean_year = anomalies_smooth[timeind].values
+                timeind = (anomalies_smooth.values >= gwl).nonzero()[0][0]
+                mean_year = anomalies_smooth[timeind].time.dt.year.values
+                period = "{0}-{1}".format(mean_year-10, mean_year+9)
                 ccs_aut_gcm1 = anomalies_aut_smooth[timeind].values
                 # add data to lists
                 mean_years.append(str(mean_year))
+                gwl_list.append(period)
                 ccs_aut_gcm.append(str(ccs_aut_gcm1))
             except IndexError:
                 mean_years.append("n/a")
+                gwl_list.append("n/a")
                 ccs_aut_gcm.append("n/a")
         
         # write data to files
-        for f in file_oeks15:   
-            modelname = f.split("/")[-1].replace("tas_","").replace(".nc","")
-            outfile.write("{0};{1};{2};{3};{4};{5};{6};{7}\n".format(search_oeks15, modelname, *mean_years, *ccs_aut_gcm))
+        modelname = file.split("/")[-1].replace("tas_Amon_","").replace(".nc","")
+        outfile.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16}\n".format(modelname,rcp, *mean_years, *gwl_list, *ccs_aut_gcm))
 
 outfile.close()
 print("Writing file {0} complete!".format(outf))

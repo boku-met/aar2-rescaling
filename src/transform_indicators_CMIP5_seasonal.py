@@ -17,24 +17,25 @@ except: # nice level already above 8
 
 # user specified paths and data
 gwls = [1.5, 2.0, 3.0, 4.0]
-path_indicator = "/hp8/Projekte_Benni/Temp_Data/Indicators/"
+path_indicator = "/sto0/data/Results/Indicators/"
 path_lookup_table = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_OEKS15_lookup_table.csv"
 path_outfile = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
 
-searchterm_indicator = "pr_"
-varname_indicator = "pr"
+searchterm_indicator = "extreme_precipitation_"
+varname_indicator = "extreme_precipitation"
 aggregate_method = "" # pick "mean" or "sum" to determine the method of aggregation to annual values
 
 # please choose mask according to dataset the indicator is based on
 f_mask = xr.open_dataset("/nas/nas5/Projects/OEK15/tas_daily/tas_SDM_CNRM-CERFACS-CNRM-CM5_rcp45_r1i1p1_CNRM-ALADIN53.nc")
 mask = xr.where(f_mask.tas[0:30,:,:].mean(dim = "time", skipna = True) > -999, 1, np.nan)
 
-infiles = sorted(glob.glob(path_indicator+"*"+searchterm_indicator+"*monthly*.nc"))
+#infiles = sorted(glob.glob(path_indicator+"*"+searchterm_indicator+"*.nc")) ## check correct file names
 lookup_table = open(path_lookup_table, mode="rt")
 lookup_table = [x.replace("\n","") for x in lookup_table]
 
 sns = ['DJF', 'JJA', 'MAM', 'SON']
 for sn in sns:
+    infiles = sorted(glob.glob(path_indicator+"*"+searchterm_indicator+"*"+"seasonal_"+sn+"*.nc"))
     for i, gwl in enumerate(gwls):
         ensemble_info = []
         indicator_data = []
@@ -56,10 +57,10 @@ for sn in sns:
                                 print("time variable exchanged in file {0}".format(f))
                             except ValueError:
                                 None
-                        curind = ((f1.time.dt.year >= int(p_start)) & (f1.time.dt.year <= int(p_end))) & (f1.time.dt.season == sn)
-                        curind_refperiod = ((f1.time.dt.year >= 1991) & (f1.time.dt.year <= 2020)) & (f1.time.dt.season == sn)
-                        ind_slice = f1[varname_indicator][curind,:,:].resample(time="A", skipna=True).sum()
-                        ind_ref_period = f1[varname_indicator][curind_refperiod,:,:].resample(time="A", skipna=True).sum()
+                        curind = ((f1.time.dt.year >= int(p_start)) & (f1.time.dt.year <= int(p_end))) #& (f1.time.dt.season == sn)
+                        curind_refperiod = ((f1.time.dt.year >= 1991) & (f1.time.dt.year <= 2020)) #& (f1.time.dt.season == sn)
+                        ind_slice = f1[varname_indicator][curind,:,:]#.resample(time="A", skipna=True).sum()
+                        ind_ref_period = f1[varname_indicator][curind_refperiod,:,:]#.resample(time="A", skipna=True).sum()
                         ind_ref_period_mean = ind_ref_period.mean(dim="time", skipna=True)
                         if ind_slice.time.size > 20:
                             if aggregate_method == "mean":
@@ -100,7 +101,7 @@ for sn in sns:
         fout = xr.Dataset({varname_indicator: gwl_ensemble, 
                         "{0}_reference_period_1991_2020".format(varname_indicator):ref_period_ensemble,
                             "{0}_anomalies".format(varname_indicator) : anomalies_ensemble,
-                        'crs': f1.crs, 
+                        'crs': f1.crs, # careful to check correct name!
                         "lat": f1.lat, "lon": f1.lon}, 
                         coords={"ens": ensemble_info, "time": gwl_ensemble.time, 
                                 "y": gwl_ensemble.y, "x": gwl_ensemble.x},

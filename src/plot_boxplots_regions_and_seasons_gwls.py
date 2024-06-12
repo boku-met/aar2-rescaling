@@ -20,12 +20,12 @@ infiles_mask = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/masks/mask
 spart_mask = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/masks/mask_regions_AT_spartacus_v2.nc"
 region_names = {1:"West", 2:"North",3:"South"}
 
-indicator_searchterm = "precipitation_intensity_"
-varname = "precipitation_intensity_anomalies"
-v_ref = "precipitation_intensity_reference_period_1991_2020"
+indicator_searchterm = "extreme_precipitation_"
+varname = "extreme_precipitation_anomalies"
+v_ref = "extreme_precipitation_reference_period_1991_2020"
 
-spart_file = "/hp8/Projekte_Benni/Temp_Data/Indicators/precipitation_intensity_SPARTACUS_seasonal*.nc"
-varname_spart = "precipitation_intensity"
+spart_file = "/sto0/data/Results/Indicators/extreme_precipitation_SPARTACUS_seasonal_*"
+varname_spart = "extreme_precipitation"
 
 infiles_gwls = sorted(glob.glob(infiles_gwl_ind+indicator_searchterm+"*.nc"))
 
@@ -144,15 +144,15 @@ infiles_obs = sorted(glob.glob(spart_file))
 sns = [x for x in vis_data_cm5]
 for sn in sns:
     infiles = [x for x in infiles_gwls if (sn in x)]
-    f_obs = [x for x in infiles_obs if (sn in x)][0]###
+    f_obs = infiles_obs[0]
+    #f_obs = [x for x in infiles_obs if (sn in x)][0]###
     f2 = xr.open_dataset(f_obs).sel(time=slice("1991","2020"))
-    pr_cur = f2[varname_spart]#[f2.time.dt.season == sn]
-    #pr_cur = pr_cur.resample(time="A", skipna=True).sum(dim="time", skipna=True)
+    pr_cur = f2[varname_spart][f2.time.dt.season == sn]
+    pr_cur = pr_cur.resample(time="A", skipna=True).sum(dim="time", skipna=True)
     rgns_obs = []
     for rn in region_names.keys():
         mask_region = xr.where(mask_obs.Band1 == rn, 1, np.nan)
         area_refperiod = (pr_cur * mask_region).mean(dim=("y","x"), skipna=True).compute()
-        #area_refperiod = area_refperiod.resample(time="A").sum(dim="time", skipna=True)
         mean_refperiod = area_refperiod.mean(dim="time", skipna = True)
         anomalies_refperiod = area_refperiod - mean_refperiod
         area_sample = (anomalies_refperiod / mean_refperiod) * 100
@@ -239,16 +239,16 @@ for sn, ax in zip(sns, axs.flat):
     ax.set_xticklabels(["West","North","South","West","North","South","West","North","South","West","North","South","West","North","South"],
                         rotation=45, fontsize=12)
 
-    ax.yaxis.set_minor_locator(MultipleLocator(10)) # set minor tick spacing
-    ax.yaxis.set_major_locator(MultipleLocator(20)) # set major tick spacing
+    ax.yaxis.set_minor_locator(MultipleLocator(5)) # set minor tick spacing
+    ax.yaxis.set_major_locator(MultipleLocator(10)) # set major tick spacing
     ax.tick_params(axis="y", which = "minor", length = 0) #hide minor ticks
 
     ax.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5)
     ax.yaxis.grid(True, linestyle='--', which='minor', color='lightgrey', alpha=0.5)
     #ax.set(axisbelow=True)
-    ax.set_ylim(-50,100)
-fig.supylabel("Change in precipitation intensity (%) compared to 1991-2020", fontsize = 14)
-fig.suptitle("Change in seasonal precipitation intensities in Austria\nfor different regions and global warming levels", fontsize = 16, x = 0.5)
+    ax.set_ylim(-20,50)
+fig.supylabel("Change in daily precipitation extremes (%) compared to 1991-2020", fontsize = 14)
+fig.suptitle("Change in seasonal extremes in daily precipitation in Austria\nfor different regions and global warming levels", fontsize = 16, x = 0.5)
 #create legend entries
 fig.get_layout_engine().set(h_pad = 0.11, w_pad = 0.11)
 
@@ -258,5 +258,5 @@ for la, bc in zip(labels, basecolours):
     pt.append(mpatches.Patch(color=bc, label=la))
 ax.legend(handles = pt, loc = "upper left", fontsize = 12)
 
-outpath = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/plots/SOD_plots/boxplot_precip_intensity_regions_seasonal.png"
+outpath = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/plots/SOD_plots/boxplot_extreme_precip_regions_seasonal.png"
 plt.savefig(outpath,dpi=600, bbox_inches ="tight")
