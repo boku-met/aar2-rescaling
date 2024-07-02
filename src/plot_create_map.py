@@ -75,7 +75,7 @@ plt.legend()
 vis_data_refperiod.plot.hist()
 
 # create colors for colorbar
-lvls = 10
+lvls = 12
 cmap = plt.cm.BrBG.resampled(lvls)
 lst = cmap(np.linspace(0,1,lvls))
 #lst = np.insert(lst, 0,[0.8,0.8,0.8,1], axis = 0) # insert grey at position 0
@@ -97,6 +97,7 @@ tick_labels = ["-2", "0", "2", "4", "6", "8", "10", "12", "14"]
 
 level_refcbar = [200, 500, 750, 1000, 1250, 1500, 1750, 2000]
 custom_ticks_refcbar = [500, 750, 1000, 1250, 1500, 1750, 2000]
+tick_labels_refcbar = ["-2", "0", "2", "4", "6", "8", "10", "12", "14"]
 
 # setting projections
 proj = ccrs.epsg(31287)
@@ -148,10 +149,11 @@ plt.savefig(outpath,dpi=600, bbox_inches ="tight")
 
 # Single plots 
 fig, axs = plt.subplots(subplot_kw=dict(projection=proj), layout = 'constrained', figsize = (8,4))
-im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, 
-                                    cbar_kwargs={"label": "Precipitation (mm)", 
-                                                 "spacing": 'uniform', "ticks": custom_ticks_refcbar})
-gl = axis.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
+im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, add_colorbar = False)
+cbar = fig.colorbar(im, label = "SPEI (sd)", spacing =  'uniform')
+cbar.set_ticks(ticks=custom_ticks_refcbar, labels=tick_labels_refcbar)
+
+gl = axs.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
                         xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
 gl.top_labels = False
 gl.right_labels = False
@@ -159,13 +161,11 @@ axs.set(ylabel = "lat", xlabel = "lon")
 axs.text(180000,450000, "Min: {0}\nMean: {1}\nMax: {2}".format(*values_refperiod), 
                  style='italic', bbox={'facecolor': 'white'})
 
-fig.suptitle("Annual precipitation sums\nin Austria for the reference period 1991-2020", size = 13, x = 0.54)
+plt.title("Annual precipitation sums\nin Austria for the reference period 1991-2020", size = 13, x = 0.54)
 fig.get_layout_engine().set(h_pad = 0.11, w_pad = 0.11)
 
 outpath = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/plots/SOD_plots/maps_pr_obs_reference_period.png"
 plt.savefig(outpath,dpi=600, bbox_inches ="tight")
-
-
 
 
 # Single plots, seasonal from monthly data
@@ -224,9 +224,9 @@ for sn in seasons:
 
 
     fig, axs = plt.subplots(subplot_kw=dict(projection=proj), layout = 'constrained', figsize = (8,4))
-    im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, 
-                                        cbar_kwargs={"label": "Precipitation intensity (mm)", 
-                                                     "spacing": 'uniform', "ticks": custom_ticks_refcbar})
+    im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, add_colorbar = False)
+    cbar = fig.colorbar(im, label = "SPEI (sd)", spacing =  'uniform')
+    cbar.set_ticks(ticks=custom_ticks_refcbar, labels=tick_labels_refcbar)
     gl = axis.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
                         xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
     gl.top_labels = False
@@ -235,7 +235,7 @@ for sn in seasons:
     axs.text(180000,450000, "Min: {0}\nMean: {1}\nMax: {2}".format(*values_refperiod), 
                  style='italic', bbox={'facecolor': 'white'})
 
-    fig.suptitle("Mean seasonal precipitation intensities ({0})\nin Austria for the reference period 1991-2020".format(sn), size = 13, x = 0.54)
+    plt.title("Mean seasonal precipitation intensities ({0})\nin Austria for the reference period 1991-2020".format(sn), size = 13, x = 0.54)
     fig.get_layout_engine().set(h_pad = 0.11, w_pad = 0.11)
 
     outpath = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/plots/SOD_plots/maps_precip_intensity_obs_seasonal_{0}_reference_period.png".format(sn)

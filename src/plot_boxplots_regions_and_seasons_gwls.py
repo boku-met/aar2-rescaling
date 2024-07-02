@@ -41,9 +41,11 @@ for f in infiles_gwls:
         #area_refperiod = (f1[v_ref] * mask_region).mean(dim=("y","x"), skipna=True).compute()
         area_sample = (f1[varname] * mask_region).mean(dim=("y","x"), skipna=True).compute()
         #area_sample = (area_sample / area_refperiod) * 100
-        par_results.append(area_sample.values)
+        ars = area_sample.values.flatten()
+        ars = ars[~np.isnan(ars)]
+        par_results.append(ars)
             
-vis_data_cm5 = [x.flatten() for x in par_results]
+vis_data_cm5 = [x for x in par_results]
 
 f2 = xr.open_dataset(spart_file).sel(time=slice("1991","2020"))
 vis_data_obs = []
@@ -53,8 +55,9 @@ for rn in region_names.keys():
     #area_refperiod = area_refperiod.resample(time="A").sum(dim="time", skipna=True)
     mean_refperiod = area_refperiod.mean(dim="time", skipna = True)
     anomalies_refperiod = area_refperiod - mean_refperiod
+    anomalies_refperiod = anomalies_refperiod[~np.isnan(anomalies_refperiod)]
     #area_sample = (anomalies_refperiod / mean_refperiod) * 100
-    vis_data_obs.append(anomalies_refperiod.values)
+    vis_data_obs.append(anomalies_refperiod)
 
 
 #plot for annual indicators
