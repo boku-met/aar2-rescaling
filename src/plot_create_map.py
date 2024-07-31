@@ -12,6 +12,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 import cartopy.crs as ccrs
+import cartopy.feature as cfeature
 import numpy as np
 import xarray as xr
 
@@ -133,8 +134,10 @@ for gwl, axis in zip(vis_data_cm5.coords["GWL"].values, axs.flat):
     gl.top_labels = False
     gl.right_labels = False
     axis.set(ylabel = "lat", xlabel = "lon", title = "GWL"+gwl)
+    axis.add_feature(cfeature.BORDERS)
     axis.text(180000,450000, "Min: {0}\nMean: {1}\nMax: {2}".format(*values_cmip5[gwl]), 
                  style='italic', bbox={'facecolor': 'white'})
+    
     
 fig.suptitle("Change in annual precipitation sums\nin Austria, compared to 1991-2020", size = 16, x = 0.5)
 cax, kwar = mpl.colorbar.make_axes(parents=axs, location="right", fraction=0.17, pad = 0.1)
@@ -158,6 +161,7 @@ gl = axs.gridlines(transform = gridcrs, draw_labels=True, dms=False,
 gl.top_labels = False
 gl.right_labels = False
 axs.set(ylabel = "lat", xlabel = "lon")
+axs.add_feature(cfeature.BORDERS)
 axs.text(180000,450000, "Min: {0}\nMean: {1}\nMax: {2}".format(*values_refperiod), 
                  style='italic', bbox={'facecolor': 'white'})
 
@@ -231,6 +235,7 @@ for sn in seasons:
                         xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
     gl.top_labels = False
     gl.right_labels = False
+    axs.add_feature(cfeature.BORDERS)
     axs.set(ylabel = "lat", xlabel = "lon")
     axs.text(180000,450000, "Min: {0}\nMean: {1}\nMax: {2}".format(*values_refperiod), 
                  style='italic', bbox={'facecolor': 'white'})
