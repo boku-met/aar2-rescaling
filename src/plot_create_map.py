@@ -142,7 +142,8 @@ for gwl, axis in zip(vis_data_cm5.coords["GWL"].values, axs.flat):
 fig.suptitle("Change in annual precipitation sums\nin Austria, compared to 1991-2020", size = 16, x = 0.5)
 cax, kwar = mpl.colorbar.make_axes(parents=axs, location="right", fraction=0.17, pad = 0.1)
 fig.delaxes(cax)
-cbar = fig.colorbar(mappable=im, ax=cax, label = "Precipitation change (%)", spacing = 'uniform', **kwar)
+cbar = fig.colorbar(mappable=im, ax=cax, spacing = 'uniform', **kwar)
+cbar.ax.set_ylabel("Precipitation change (%)")#, size=12)
 cbar.set_ticks(ticks=custom_ticks, labels=tick_labels)
 fig.get_layout_engine().set(h_pad = 0.05, w_pad = 0.11)
 
@@ -153,7 +154,8 @@ plt.savefig(outpath,dpi=600, bbox_inches ="tight")
 # Single plots 
 fig, axs = plt.subplots(subplot_kw=dict(projection=proj), layout = 'constrained', figsize = (8,4))
 im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, add_colorbar = False)
-cbar = fig.colorbar(im, label = "SPEI (sd)", spacing =  'uniform')
+cbar = fig.colorbar(im, spacing =  'uniform')
+cbar.ax.set_ylabel("SPEI (sd)")#, size=12)
 cbar.set_ticks(ticks=custom_ticks_refcbar, labels=tick_labels_refcbar)
 
 gl = axs.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
@@ -229,7 +231,8 @@ for sn in seasons:
 
     fig, axs = plt.subplots(subplot_kw=dict(projection=proj), layout = 'constrained', figsize = (8,4))
     im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, add_colorbar = False)
-    cbar = fig.colorbar(im, label = "SPEI (sd)", spacing =  'uniform')
+    cbar = fig.colorbar(im, spacing =  'uniform')
+    cbar.ax.set_ylabel("SPEI (sd)")#, size=12)
     cbar.set_ticks(ticks=custom_ticks_refcbar, labels=tick_labels_refcbar)
     gl = axis.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
                         xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))

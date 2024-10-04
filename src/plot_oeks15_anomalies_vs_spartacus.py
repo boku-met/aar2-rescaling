@@ -22,18 +22,29 @@ infiles_spart_tx = sorted(glob.glob("/sto0/data/Input/Gridded/SPARTACUS/V2.1/TX/
 infiles_oeks15_rcp26 = sorted(glob.glob("/nas/nas5/Projects/OEK15/tas_daily/*rcp26*.nc"))
 infiles_oeks15_rcp45 = sorted(glob.glob("/nas/nas5/Projects/OEK15/tas_daily/*rcp45*.nc"))
 infiles_oeks15_rcp85 = sorted(glob.glob("/nas/nas5/Projects/OEK15/tas_daily/*rcp85*.nc"))
+path_lookup_table = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_OEKS15_lookup_table.csv"
+
+lookup_table = open(path_lookup_table, mode="rt")
+lookup_table = [x.replace("\n","") for x in lookup_table]
 
 mask_ds = xr.open_dataset(infiles_oeks15_rcp45[0])
 mask = xr.where(mask_ds.tas[20:70,:,:].mean(dim="time", skipna=True) >= -999, 1, np.nan)
 
 def prepare_oeks15(file):
+    # get gwl periods
+    modelname = "_".join(file.split("/")[-1].split("_")[2:6]).replace(".nc","")
+    for l in lookup_table:
+        if modelname in l:
+            ll = l.split(";")
+            if ll[1]:
+                p_start = ll[1].split("-")[0]
+                p_end = ll[1].split("-")[1]
     f1 = xr.open_dataset(file).sel(time=slice("1971","2097"))
     tmean_annual = f1.tas.resample(time="YE", skipna=True).mean()
-    tmean_anomalies = tmean_annual - tmean_annual.sel(time=slice("1971","2000")).mean(dim="time", skipna=True)
+    tmean_anomalies = tmean_annual - tmean_annual.sel(time=slice("2001", "2020")).mean(dim="time", skipna=True)
     tmean_anomalies = tmean_anomalies * mask
     tmean_anomalies_areamean = tmean_anomalies.mean(dim=("y", "x"), skipna=True)
     return tmean_anomalies_areamean
-
 
 if __name__ == '__main__':
     # create and configure the process pool
@@ -58,13 +69,26 @@ if __name__ == '__main__':
     # process pool is closed automatically
 
 
+#alternative using already finished anomalies (run x3 for each RCP):
+anomalies_rcp85 = []
+for file in infiles_oeks15_rcp85:
+    # open file and load in DataArray for processing
+    f1 = open(file, mode="rt")
+    f1 = [x.replace("\n","") for x in f1]
+    data = [x.split(";")[1] for x in f1[1:]]
+    years = [x.split(";")[0] for x in f1[1:]]
+    time = np.array(years, np.datetime64)
+    time=xr.DataArray(time, coords={"time":time})
+    anomalies = xr.DataArray(np.array(data, dtype=np.float32), coords={"time":time}).sel(time=slice("1971","2097"))
+    anomalies_rcp85.append(anomalies)
+
 
 newtime = np.arange("1971","2098", dtype=np.datetime64)
 newtime = xr.DataArray(newtime, coords={"time":newtime})
 
-mname_rcp26 = [("_").join(x.split("/")[-1].split("_")[2:6]) for x in infiles_oeks15_rcp26]
-mname_rcp45 = [("_").join(x.split("/")[-1].split("_")[2:6]) for x in infiles_oeks15_rcp45]
-mname_rcp85 = [("_").join(x.split("/")[-1].split("_")[2:6]) for x in infiles_oeks15_rcp85]
+mname_rcp26 = [("_").join(x.split("/")[-1].split("_")[2:6]).replace(".nc","") for x in infiles_oeks15_rcp26]
+mname_rcp45 = [("_").join(x.split("/")[-1].split("_")[2:6]).replace(".nc","") for x in infiles_oeks15_rcp45]
+mname_rcp85 = [("_").join(x.split("/")[-1].split("_")[2:6]).replace(".nc","") for x in infiles_oeks15_rcp85]
 
 ds_rcp26 = xr.DataArray(results_rcp26, coords={"ens": mname_rcp26, "time":newtime})
 ds_rcp45 = xr.DataArray(results_rcp45, coords={"ens": mname_rcp45, "time":newtime})
@@ -148,18 +172,18 @@ axs.fill_between(time_tmean, q10_rcp45, q90_rcp45, color="orange", alpha = 0.3, 
 axs.fill_between(time_tmean, q10_rcp85, q90_rcp85, color="magenta", alpha = 0.3, label = "RCP8.5 p10 - p90")
 
 
-axs.plot(time_spart[(time_spart >= 1971) & (time_spart <= 2000)], np.zeros(30), lw = 2, color = "red", alpha = 0.9,
-         label = "Average of the period 1971-2000")
+axs.plot(time_spart[(time_spart >= 1991) & (time_spart <= 2020)], np.zeros(30), lw = 2, color = "red", alpha = 0.9,
+         label = "Average of the period 1991-2020")
 
 crossing_v_rcp85 = median_rcp85[median_rcp85 >= spart_lowess.max()][0].time.dt.year.values
 crossing_v_rcp45 = median_rcp45[median_rcp45 >= spart_lowess.max()][0].time.dt.year.values
-# no crossing for rcp26
-#crossing_v_rcp26 = median_rcp26[median_rcp26 >= spart_lowess.max()][0].time.dt.year.values
+crossing_v_rcp26 = median_rcp26[median_rcp26 >= spart_lowess.max()][0].time.dt.year.values
 
 
-plt.axvline(crossing_v_rcp85, ymax=0.44, color="magenta", lw = 1.1, ls = "--", label = str(crossing_v_rcp85))
-plt.axvline(crossing_v_rcp45, ymax=0.44, color="orange", lw = 1.1, ls = "--", label = str(crossing_v_rcp45))
 
+plt.axvline(crossing_v_rcp85, ymax=0.433, color="magenta", lw = 1.1, ls = "--", label = str(crossing_v_rcp85))
+plt.axvline(crossing_v_rcp45, ymax=0.433, color="orange", lw = 1.1, ls = "--", label = str(crossing_v_rcp45))
+plt.axvline(crossing_v_rcp26, ymax=0.433, color="royalblue", lw = 1.1, ls = "--", label = str(crossing_v_rcp26))
 
 axs.yaxis.set_major_locator(MultipleLocator(1))
 axs.yaxis.set_minor_locator(MultipleLocator(0.2)) # set minor tick spacing
@@ -184,8 +208,7 @@ plt.legend(loc = "upper left", fontsize = 11)
 #plt.ylim(-20, 30)
 plt.xlabel("Year", fontsize = 11, labelpad=12)
 plt.ylabel("Temperature anomaly (°C)", fontsize = 12, labelpad=10)
-plt.title("Annual mean temperature anomalies relative to 1971-2000\n for SPARTACUS and ÖKS15 in Austria", fontsize = 14, pad = 18)
+plt.title("Annual mean temperature anomalies relative to 1991-2020\n for SPARTACUS and ÖKS15 in Austria", fontsize = 14, pad = 18)
 
-
-outpath = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/plots/oeks15_vs_spartacus.png"
+outpath = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/plots/oeks15_vs_spartacus_lehner_special_edition.png"
 plt.savefig(outpath,dpi=600, bbox_inches ="tight")

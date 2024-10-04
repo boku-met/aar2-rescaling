@@ -16,7 +16,7 @@ except: # nice level already above 8
     pass
 
 # user specified paths and data
-gwls = [1.5, 2.0, 3.0, 4.0]
+gwls = [1.0, 1.5, 2.0, 3.0, 4.0]
 path_indicator = "/sto1/home/bennib/Bennib/Fluvial_processes/data/indicators/"
 path_lookup_table = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP6_OEKS15_lookup_table.csv"
 path_outfile = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/indicators_gwl/"
