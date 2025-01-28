@@ -29,8 +29,8 @@ lonmax=17
 
 # user specified paths and data
 gwls = [1.0, 1.5, 2.0, 3.0, 4.0]
-path_cmip5_models = "/hpx/Bennib/CMIP5_data_temp/OEKS15_models/"
-path_cmip5_hist = "/hpx/Bennib/CMIP5_data_temp/OEKS15_historical/"
+path_cmip5_models = "/sto0/data/Input/Gridded/CMIP-GCMs/CMIP5_data_temp/OEKS15_models/"
+path_cmip5_hist = "/sto0/data/Input/Gridded/CMIP-GCMs/CMIP5_data_temp/OEKS15_historical/"
 path_oeks15 = "/nas/nas5/Projects/OEK15/tas_daily/"
 outf = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/gwl_lists/GWLs_CMIP5_OEKS15.csv"
 outp = "/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/oeks15_anomalies/"
