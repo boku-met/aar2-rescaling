@@ -22,11 +22,10 @@ def user_data():
     path_to_data = "/nas/nas5/Projects/OEK15/pr_daily" 
     
     # Please specify the path to the folder where the output should be saved to
-    output_path = "/hp8/Projekte_Benni/Temp_Data/Indicators"
+    output_path = "/sto0/data/Results/Indicators"
              
     return path_to_data, output_path
-        
-    
+            
 (path_in, path_out) = user_data()
 
 if path_in.endswith("/"):
@@ -52,35 +51,35 @@ for file in infiles_pr:
     # Calculate indicator with parallel processing
     def parallel_loop(y):
         cur_pr = ds_in_pr.pr[ds_in_pr.time.dt.year == y].load()
-        cond_1mm = xr.where(cur_pr >= 1, 1, 0).resample(time="M", skipna=True).sum()
-        return cond_1mm
+        pr_sum = cur_pr.max(dim="time", skipna = True)
+        return pr_sum
     if __name__ == '__main__':
         # create and configure the process pool
         with Pool(18) as pool:
             # execute tasks, block until all completed
             parallel_results = pool.map(parallel_loop, years)
-                # process pool is closed automatically
+        # process pool is closed automatically
     
-    pr_1mm = xr.combine_nested(parallel_results, concat_dim="time", coords='minimal')
-    
-    pr_1mm = (pr_1mm * mask).compute()  
-    
+    pr_annual = xr.combine_nested(parallel_results, concat_dim="time", coords='minimal')
+
+    pr_annual = (pr_annual * mask).compute()
+
     print("--> Calculation of indicators for dataset {0} complete".format(file))
             
     # Add CF-conformal metadata
     
     # Attributes for the indicator variables:
-    attr_dict = {"coordinates": "time lat lon", 
+    attr_dict = {"coordinates": "time y x", 
                     "grid_mapping": "crs", 
-                    "standard_name": "number_of_days_with_precipitation_above_thresholds", 
-                    "units": "1"}
-    pr_1mm.attrs = attr_dict
+                    "standard_name": "precipitation_amount", 
+                    "units": "kg m-2"}
+    pr_annual.attrs = attr_dict
 
-    pr_1mm.attrs.update({"cell_methods":"time: sum within days time: sum over days "
-                    "(days exceeding 1 mm of precipitation)",
-                    "long_name": "Monthly No of days exceeding 1 mm of daily precipitation" })
-    
-    time_resampled = ds_in_pr.time.resample(time="M")
+    pr_annual.attrs.update({"cell_methods":"time: sum within days time: max over days "
+                    "(maximum of daily precipitation sums)",
+                    "long_name": "Maximum daily precipitation per year" })
+
+    time_resampled = ds_in_pr.time.resample(time="A")
     start_inds = np.array([x.start for x in time_resampled.groups.values()])
     end_inds = np.array([x.stop for x in time_resampled.groups.values()])
     end_inds[-1] = ds_in_pr.time.size
@@ -88,23 +87,23 @@ for file in infiles_pr:
     start_inds = start_inds.astype(np.int32)
     end_inds = end_inds.astype(np.int32)
     
-    pr_1mm.coords["time"] = ds_in_pr.time[end_inds]
-                                                    
-    pr_1mm.time.attrs.update({"climatology":"climatology_bounds"})
-            
+    pr_annual.coords["time"] = ds_in_pr.time[end_inds]
+                                            
+    pr_annual.time.attrs.update({"climatology":"climatology_bounds"})
+    
     # Encoding and compression
-    encoding_dict = {"_FillValue":-32767, "dtype":np.int16, 'zlib': True,
+    encoding_dict = {"_FillValue":9.96921e+36, "dtype":np.float32, 'zlib': True,
                         'complevel': 1, 'fletcher32': False, 
                         'contiguous': False}
     
-    pr_1mm.encoding = encoding_dict
-                                    
+    pr_annual.encoding = encoding_dict
+                            
     # Climatology variable
     climatology_attrs = {'long_name': 'time bounds', 'standard_name': 'time'}
     climatology = xr.DataArray(np.stack((ds_in_pr.time[start_inds],
                                             ds_in_pr.time[end_inds]), 
                                         axis=1), 
-                                coords={"time": pr_1mm.time, 
+                                coords={"time": pr_annual.time, 
                                         "nv": np.arange(2, dtype=np.int16)},
                                 dims = ["time","nv"], 
                                 attrs=climatology_attrs)
@@ -116,19 +115,19 @@ for file in infiles_pr:
     mname = file.replace(".nc","")
     modelname = "_".join(mname.split("/")[-1].split("_")[2:6])
 
-    file_attrs = {'title': 'Wet Days',
+    file_attrs = {'title': 'Maximum daily precipitation sum per year',
         'institution': 'Institute of Meteorology and Climatology, University of '
         'Natural Resources and Life Sciences, Vienna, Austria',
         'source': modelname,
-        'comment': 'Monthly sum of days exceeding 1 mm of daily precipitation sums',
+        'comment': 'Annual maximum of daily precipitation sums',
         'Conventions': 'CF-1.8'}
     
-    ds_out = xr.Dataset(data_vars={"wet_days_1mm": pr_1mm,
+    ds_out = xr.Dataset(data_vars={"prmax": pr_annual,
                                     "climatology_bounds": climatology, 
                                     "crs": crs,
                                     "lat": ds_in_pr.lat,
                                     "lon": ds_in_pr.lon}, 
-                        coords={"time":pr_1mm.time, "y": ds_in_pr.y,
+                        coords={"time":pr_annual.time, "y": ds_in_pr.y,
                                 "x":ds_in_pr.x},
                         attrs=file_attrs)
     
@@ -136,7 +135,7 @@ for file in infiles_pr:
         None
     else:
         path_out += "/"
-    outf = path_out + "Wetdays_" + modelname + "_monthly_{0}-{1}.nc".format(min(years), max(years))
+    outf = path_out + "prmax_" + modelname + "_annual_{0}-{1}.nc".format(min(years), max(years))
     if os.path.isfile(outf):
         print("File {0} already exists. Removing...".format(outf))
         os.remove(outf)
