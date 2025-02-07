@@ -1,10 +1,5 @@
 import os
 import glob
-import copy
-from multiprocessing.pool import Pool
-import matplotlib.patches as mpatches
-from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
-import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
 
@@ -43,3 +38,24 @@ for f in infiles_gwls[1:]:
         for en in anomalies.ens:
             mdln += "{0};".format(anomalies.sel(ens=en)[i].values)
         print(mdln)
+
+
+### Write .nc files instead of text files
+for f in infiles_gwls[1:]:
+    f1 = xr.open_dataset(f)  
+    f_ref = xr.open_dataset(infiles_gwls[0])  
+
+    area_refperiod = (f_ref[varname] * mask).mean(dim=("y","x"), skipna=True)
+    refperiod = area_refperiod.mean(dim="time", skipna=True).compute()
+    area_sample = (f1[varname] * mask).mean(dim=("y","x"), skipna=True).compute()
+
+    anomalies = area_sample - refperiod
+
+    fout = xr.Dataset(data_vars= {varname + "_anomalies": anomalies},
+    coords= {"ens": anomalies.ens, "time": anomalies.time},
+    attrs=f1.attrs)
+
+    modelname = f.split("/")[-1]
+    outf = "/nas/nas5/Projects/AAR2_rescaling/aar2-rescaling/data/oeks15_anomalies/" + modelname
+    fout.to_netcdf(outf)
+
