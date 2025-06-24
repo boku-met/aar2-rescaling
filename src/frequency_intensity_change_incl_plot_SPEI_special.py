@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
 
-
 try: 
     os.nice(8-os.nice(0)) # set current nice level to 8, if it is lower 
 except: # nice level already above 8

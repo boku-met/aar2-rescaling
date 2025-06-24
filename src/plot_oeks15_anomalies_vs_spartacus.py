@@ -35,8 +35,8 @@ mask = xr.where(mask_ds.tas[20:70,:,:].mean(dim="time", skipna=True) >= -999, 1,
 spart_mask_ds = xr.open_dataset(spart_mask_path)
 mask_spart = xr.where(spart_mask_ds.Band1 == 1, 1, np.nan)
 
-sy = "1971"
-ey = "2000"
+sy = "2001"
+ey = "2020"
 
 # dont need to do that because timeseries are available!
 def prepare_oeks15(file):
