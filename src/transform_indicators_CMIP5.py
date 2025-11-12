@@ -64,8 +64,10 @@ for i, gwl in enumerate(gwls):
                             ind_slice = ind_slice.resample(time="A", skipna=True).sum()
                             ind_ref_period_annual = ind_ref_period.resample(time="A", skipna=True).sum()
                             ind_ref_period_mean = ind_ref_period_annual.mean(dim="time", skipna=True)
-                        else:
+                        if not "mean" in aggregate_method and not "sum" in aggregate_method:
                             print("""Method of aggregation for variables with higher than annual resolution not found. Please choose 'mean' or 'sum'""")
+                    if ind_slice.time.size < 20:
+                        continue
                     ind_anomaly = ind_slice - ind_ref_period_mean
                     indicator_data.append(ind_slice)
                     ref_period.append(ind_ref_period_mean)

@@ -131,8 +131,8 @@ level_refcbar = [x for x in np.arange(-0.6, 0.3, 0.1)]
 #tick_labels_refcbar = ["-2", "0", "2", "4", "6", "8", "10", "12", "14"]
 
 # setting projections
-proj_obs = ccrs.epsg(31287)
-proj_oeks = ccrs.epsg(3416)
+proj_obs = ccrs.LambertConformal(central_longitude=13.33333333333333,central_latitude=47.5,standard_parallels=(46.,49.),false_easting=400000,false_northing=400000,globe=ccrs.Globe(ellipse="GRS80"))
+proj_oeks = proj_obs
 gridcrs = ccrs.Geodetic()
 
 # start plotting the figure
@@ -156,7 +156,8 @@ for gwl, axis in zip(vis_data_cm5.coords["GWL"].values, axs.flat):
 
     im = pltdata.plot.imshow(ax = axis, add_colorbar = False, 
                                                colors = custom_clrs, levels = level)
-    gl = axis.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
+    gl = axis.gridlines(transform = gridcrs, draw_labels=True, dms=True, x_inline = False,
+                        rotate_labels = False,
                         xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
                         #xlabel_style = {"fontsize":9}, ylabel_style = {"fontsize":9})
     gl.top_labels = False
@@ -190,8 +191,9 @@ fig, axs = plt.subplots(subplot_kw=dict(projection=proj_obs), layout = 'constrai
                         figsize = (6.88/2, 6.88))
 im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, 
                                     add_colorbar = False)
-gl = axs.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
-                   xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
+gl = axs.gridlines(transform = gridcrs, draw_labels=True, dms=True, x_inline = False,
+                        rotate_labels = False,
+                        xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
 gl.top_labels = False
 gl.right_labels = False
 axs.set(ylabel = "lat", xlabel = "lon")
@@ -274,7 +276,8 @@ for sn in seasons:
                             figsize = (6.88/2, 6.88))
     im = vis_data_refperiod.plot.imshow(colors = custom_clrs_refcbar, levels = level_refcbar, 
                                         add_colorbar = False)
-    gl = axs.gridlines(transform = gridcrs, draw_labels=True, dms=False, 
+    gl = axs.gridlines(transform = gridcrs, draw_labels=True, dms=True, x_inline = False,
+                        rotate_labels = False,
                         xlocs = MultipleLocator(2), ylocs = MultipleLocator(1))
     gl.top_labels = False
     gl.right_labels = False
